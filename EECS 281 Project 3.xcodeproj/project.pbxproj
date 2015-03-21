@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		27E638E21AB89557004437F3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27E638E11AB89557004437F3 /* main.cpp */; };
+		27E638EA1AB89724004437F3 /* logman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27E638E81AB89724004437F3 /* logman.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +23,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2701B94A1ABDDF83009CBD13 /* EECS281W15Project3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = EECS281W15Project3.pdf; path = Proj3Files/EECS281W15Project3.pdf; sourceTree = SOURCE_ROOT; };
+		2701B94B1ABDDF83009CBD13 /* excerpt-list-commands */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "excerpt-list-commands"; path = "Proj3Files/excerpt-list-commands"; sourceTree = SOURCE_ROOT; };
+		2701B94C1ABDDF83009CBD13 /* log-data */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "log-data"; path = "Proj3Files/log-data"; sourceTree = SOURCE_ROOT; };
+		2701B94D1ABDDF83009CBD13 /* output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = output; path = Proj3Files/output; sourceTree = SOURCE_ROOT; };
+		2701B94E1ABDE6A2009CBD13 /* TimestampTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimestampTable.h; sourceTree = SOURCE_ROOT; };
+		2701B94F1ABDE6C5009CBD13 /* CategoryTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CategoryTable.h; sourceTree = SOURCE_ROOT; };
+		2701B9501ABDE6D0009CBD13 /* KeywordTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeywordTable.h; sourceTree = SOURCE_ROOT; };
 		27E638DE1AB89557004437F3 /* EECS 281 Project 3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "EECS 281 Project 3"; sourceTree = BUILT_PRODUCTS_DIR; };
-		27E638E11AB89557004437F3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		27E638E81AB89724004437F3 /* logman.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logman.cpp; sourceTree = SOURCE_ROOT; };
+		27E638E91AB89724004437F3 /* logman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logman.h; sourceTree = SOURCE_ROOT; };
+		27E638EB1AB8A2E7004437F3 /* log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +47,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2701B9491ABDDF6D009CBD13 /* Proj3Files */ = {
+			isa = PBXGroup;
+			children = (
+				2701B94A1ABDDF83009CBD13 /* EECS281W15Project3.pdf */,
+				2701B94B1ABDDF83009CBD13 /* excerpt-list-commands */,
+				2701B94C1ABDDF83009CBD13 /* log-data */,
+				2701B94D1ABDDF83009CBD13 /* output */,
+			);
+			name = Proj3Files;
+			sourceTree = "<group>";
+		};
 		27E638D51AB89557004437F3 = {
 			isa = PBXGroup;
 			children = (
@@ -57,7 +77,13 @@
 		27E638E01AB89557004437F3 /* EECS 281 Project 3 */ = {
 			isa = PBXGroup;
 			children = (
-				27E638E11AB89557004437F3 /* main.cpp */,
+				27E638E91AB89724004437F3 /* logman.h */,
+				27E638E81AB89724004437F3 /* logman.cpp */,
+				27E638EB1AB8A2E7004437F3 /* log.h */,
+				2701B94E1ABDE6A2009CBD13 /* TimestampTable.h */,
+				2701B94F1ABDE6C5009CBD13 /* CategoryTable.h */,
+				2701B9501ABDE6D0009CBD13 /* KeywordTable.h */,
+				2701B9491ABDDF6D009CBD13 /* Proj3Files */,
 			);
 			path = "EECS 281 Project 3";
 			sourceTree = "<group>";
@@ -118,7 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27E638E21AB89557004437F3 /* main.cpp in Sources */,
+				27E638EA1AB89724004437F3 /* logman.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +258,7 @@
 				27E638E71AB89557004437F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,0 +1,13 @@
+c TCP
+i 10
+p
+k lock #3
+k UI
+r
+p
+d 1
+b 1
+p
+s
+p
+q
