@@ -187,9 +187,11 @@ help:
 #####################
 # MY OWN TEST CASES #
 #####################
-testClasses : log.h TimestampTable.h CategoryTable.h KeywordTable.h TestClasses.h TestClasses.cpp
+buildTestClasses : log.h TimestampTable.h CategoryTable.h KeywordTable.h TestClasses.h TestClasses.cpp
 	rm -f testClasses
 	g++ $(CXXFLAGS) -O3 TestClasses.cpp -o testClasses
+
+testClasses : buildTestClasses
 	./testClasses
 
 #######################
