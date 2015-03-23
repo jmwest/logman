@@ -9,7 +9,7 @@
 #ifndef EECS_281_Project_3_CategoryTable_h
 #define EECS_281_Project_3_CategoryTable_h
 
-#include "log.h"
+#include "Log.h"
 
 typedef unordered_multimap <int, Log*> CatTable;
 
