@@ -61,6 +61,12 @@ Log* create_log(string* &str) {
 	string cat;
 	string mess;
 
+	size_t time_end = str->find('|');
+	size_t cat_end = str->find('|', time_end + 1);
+
+	cat = str->substr(time_end + 1, cat_end - time_end - 1);
+	mess = str->substr(cat_end + 1);
+
 	string* time_ptr = &time;
 	string* cat_ptr = &cat;
 	string* mess_ptr = &mess;

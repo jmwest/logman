@@ -23,6 +23,8 @@ private:
 	int hash(Log* &log);
 	int hash(int day, int sec);
 
+	bool time_in_range(string* &time, string* &range_start, string* &range_end);
+
 public:
 	TimestampTable();
 
@@ -43,6 +45,7 @@ void TimestampTable::insert_log(Log* log) {
 }
 
 LogQueue* TimestampTable::get_logs(string* &time1, string* &time2) {
+
 	LogQueue* logs = new LogQueue ();
 
 	int start_day = (stoi(time1->substr(0,2))*100) + stoi(time1->substr(3,2));
@@ -59,7 +62,11 @@ LogQueue* TimestampTable::get_logs(string* &time1, string* &time2) {
 		pair <TimeTable::iterator, TimeTable::iterator> stamps = table.equal_range(hash(start_day, start_second));
 
 		for (TimeTable::iterator it = stamps.first; it != stamps.second; ++it) {
-			logs->push(it->second);
+
+			string* current_time = it->second->get_time_stamp();
+			if (time_in_range(current_time, time1, time2)) {
+				logs->push(it->second);
+			}
 		}
 
 		start_second += second_prime;
@@ -83,5 +90,11 @@ int TimestampTable::hash(Log* &log) {
 int TimestampTable::hash(int day, int sec) {
 	return (day / day_prime)*1000 + sec/second_prime;
 }
+
+bool TimestampTable::time_in_range(string* &time, string* &range_start, string* &range_end) {
+
+	return (((*time) >= (*range_start)) && ((*time) < (*range_end)));
+}
+
 
 #endif

@@ -52,6 +52,18 @@ public:
 
 int Log::count = 0;
 
+Log::Log(string* &timestamp_in, string* &category_in, string* &message_in)
+:entry_id(count++), timestamp(*timestamp_in), category(*category_in), message(*message_in) {
+
+	month = stoi(timestamp_in->substr(0,2));
+	day = stoi(timestamp_in->substr(3,2));
+	hour = stoi(timestamp_in->substr(6,2));
+	minute = stoi(timestamp_in->substr(9,2));
+	second = stoi(timestamp_in->substr(12,2));
+}
+
+// Other comparator and type definitions
+
 class LogComparator {
 public:
 	bool operator() (Log* &one, Log* &two) {
@@ -74,7 +86,7 @@ public:
 						if (one->get_second() > two->get_second()) {
 							return true;
 						}
-
+						
 						else if (one->get_category() > two->get_category()) {
 							return true;
 						}
@@ -91,16 +103,6 @@ public:
 		return false;
 	}
 };
-
-Log::Log(string* &timestamp_in, string* &category_in, string* &message_in)
-:entry_id(++count), timestamp(*timestamp_in), category(*category_in), message(*message_in) {
-
-	month = stoi(timestamp_in->substr(0,2));
-	day = stoi(timestamp_in->substr(3,2));
-	hour = stoi(timestamp_in->substr(6,2));
-	minute = stoi(timestamp_in->substr(9,2));
-	second = stoi(timestamp_in->substr(12,2));
-}
 
 typedef priority_queue <Log*, vector <Log*>, LogComparator> LogQueue;
 
