@@ -38,7 +38,7 @@
 		27E638DE1AB89557004437F3 /* EECS 281 Project 3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "EECS 281 Project 3"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27E638E81AB89724004437F3 /* logman.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logman.cpp; sourceTree = SOURCE_ROOT; };
 		27E638E91AB89724004437F3 /* logman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logman.h; sourceTree = SOURCE_ROOT; };
-		27E638EB1AB8A2E7004437F3 /* log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = SOURCE_ROOT; };
+		27E638EB1AB8A2E7004437F3 /* Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +93,7 @@
 			children = (
 				27E638E91AB89724004437F3 /* logman.h */,
 				27E638E81AB89724004437F3 /* logman.cpp */,
-				27E638EB1AB8A2E7004437F3 /* log.h */,
+				27E638EB1AB8A2E7004437F3 /* Log.h */,
 				2701B94E1ABDE6A2009CBD13 /* TimestampTable.h */,
 				2701B94F1ABDE6C5009CBD13 /* CategoryTable.h */,
 				2701B9501ABDE6D0009CBD13 /* KeywordTable.h */,
