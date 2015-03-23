@@ -10,10 +10,10 @@
 #define EECS_281_Project_3_KeywordTable_h
 
 class KeywordTable {
-public:
-	
-	
 private:
+	
+	
+public:
 	
 };
 

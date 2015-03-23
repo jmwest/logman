@@ -9,11 +9,17 @@
 #ifndef EECS_281_Project_3_CategoryTable_h
 #define EECS_281_Project_3_CategoryTable_h
 
-class CategoryTable {
-public:
-	
+#include "log.h"
 
+typedef unordered_multimap <int, Log*> CatTable;
+
+class CategoryTable {
 private:
+	static const int cat_prime = 97;
+
+	CatTable table;
+
+public:
 	
 };
 

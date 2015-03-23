@@ -51,16 +51,16 @@ int main() {
 ///////// end Log tests /////
 
 ///////// double tests //////
-	double tim = (first.get_month()*100000000) + (first.get_day()*1000000) + (first.get_hour()*10000) + (first.get_minute()*100) + first.get_second();
-	double tim2 = (second.get_month()*100000000) + (second.get_day()*1000000) + (second.get_hour()*10000) + (second.get_minute()*100) + second.get_second();
-
-	cout << fixed;
-	cout << "time: " << tim << endl;
-	cout << "day: " << int(tim/1000000) << endl;
-
-	if (tim == tim2) {
-		cout << "same" << endl;
-	}
+//	double tim = (first.get_month()*100000000) + (first.get_day()*1000000) + (first.get_hour()*10000) + (first.get_minute()*100) + first.get_second();
+//	double tim2 = (second.get_month()*100000000) + (second.get_day()*1000000) + (second.get_hour()*10000) + (second.get_minute()*100) + second.get_second();
+//
+//	cout << fixed;
+//	cout << "time: " << tim << endl;
+//	cout << "day: " << int(tim/1000000) << endl;
+//
+//	if (tim == tim2) {
+//		cout << "same" << endl;
+//	}
 ///////// end double tests //////
 
 ///////// TimestampTable tests //////
@@ -71,10 +71,12 @@ int main() {
 	time_table.insert_log(&third);
 	time_table.insert_log(&forth);
 
-	list <Log*>* lst1 = time_table.get_logs(time_ptr, time3_ptr);
+	LogQueue* lst1 = time_table.get_logs(time_ptr, time3_ptr);
 
-	assert(strcmp(lst1->front()->get_time_stamp()->c_str(), time.c_str()));
-	assert(strcmp(lst1->back()->get_time_stamp()->c_str(), time2.c_str()));
+	assert(!strcmp(lst1->top()->get_time_stamp()->c_str(), time.c_str()));
+	lst1->pop();
+	lst1->pop();
+	assert(!strcmp(lst1->top()->get_time_stamp()->c_str(), time2.c_str()));
 ///////// end Timestamp Table tests //////
 
 	return 0;

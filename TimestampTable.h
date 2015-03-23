@@ -9,9 +9,6 @@
 #ifndef EECS_281_Project_3_TimestampTable_h
 #define EECS_281_Project_3_TimestampTable_h
 
-#include <unordered_map>
-#include <queue>
-
 #include "Log.h"
 
 typedef unordered_multimap <int, Log*> TimeTable;
@@ -24,19 +21,17 @@ private:
 	TimeTable table;
 
 	int hash(Log* &log);
+	int hash(int day, int sec);
 
 public:
 	TimestampTable();
 
 	void insert_log(Log* log);
 
-	priority_queue <Log*>* get_logs(string* &time1, string* &time2);
+	LogQueue* get_logs(string* &time1, string* &time2);
 };
 
-TimestampTable::TimestampTable() {
-
-
-}
+TimestampTable::TimestampTable() {}
 
 void TimestampTable::insert_log(Log* log) {
 
@@ -47,8 +42,8 @@ void TimestampTable::insert_log(Log* log) {
 	return;
 }
 
-priority_queue <Log*>* TimestampTable::get_logs(string* &time1, string* &time2) {
-	priority_queue <Log*>* logs = new priority_queue <Log*> ();
+LogQueue* TimestampTable::get_logs(string* &time1, string* &time2) {
+	LogQueue* logs = new LogQueue ();
 
 	int start_day = (stoi(time1->substr(0,2))*100) + stoi(time1->substr(3,2));
 	int start_second = (stoi(time1->substr(6,2))*10000) + (stoi(time1->substr(9,2))*100) + stoi(time1->substr(12,2));
@@ -61,7 +56,11 @@ priority_queue <Log*>* TimestampTable::get_logs(string* &time1, string* &time2) 
 			break;
 		}
 
-		
+		pair <TimeTable::iterator, TimeTable::iterator> stamps = table.equal_range(hash(start_day, start_second));
+
+		for (TimeTable::iterator it = stamps.first; it != stamps.second; ++it) {
+			logs->push(it->second);
+		}
 
 		start_second += second_prime;
 
@@ -79,6 +78,10 @@ int TimestampTable::hash(Log* &log) {
 	int key_p2 = ((log->get_hour()*10000) + (log->get_minute()*100) + log->get_second())/second_prime;
 
 	return key_p1*1000 + key_p2;
+}
+
+int TimestampTable::hash(int day, int sec) {
+	return (day / day_prime)*1000 + sec/second_prime;
 }
 
 #endif

@@ -57,9 +57,15 @@ void input_master_log_file(ifstream &file_stream, TimestampTable* &time_table, C
 }
 
 Log* create_log(string* &str) {
-	
+	string time = str->substr(0, 14);
+	string cat;
+	string mess;
 
-	return new Log();
+	string* time_ptr = &time;
+	string* cat_ptr = &cat;
+	string* mess_ptr = &mess;
+
+	return new Log(time_ptr, cat_ptr, mess_ptr);
 }
 
 
