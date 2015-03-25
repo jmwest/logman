@@ -59,7 +59,7 @@ TESTS       = $(TESTSOURCES:%.cpp=%)
 SOURCES 	= $(wildcard *.cpp)
 SOURCES     := $(filter-out $(TESTSOURCES), $(SOURCES))
 # list of objects used in project
-OBJECTS		= $(SOURCES:%.cpp=%.o)
+OBJECTS		= $(SOURCES:logman.cpp=logman.o)
 
 # TODO
 # If main() is in a file named project*.cpp, use the following line

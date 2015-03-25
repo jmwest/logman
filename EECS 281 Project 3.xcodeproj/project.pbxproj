@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		27BDF0BB1ABE5DC0009E0C8F /* TestClasses.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF0B91ABE5DC0009E0C8F /* TestClasses.cpp */; };
 		27BDF0BD1ABE6905009E0C8F /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF0BC1ABE6905009E0C8F /* Makefile */; };
 		27E638EA1AB89724004437F3 /* logman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27E638E81AB89724004437F3 /* logman.cpp */; };
 /* End PBXBuildFile section */
@@ -32,7 +31,7 @@
 		2701B94E1ABDE6A2009CBD13 /* TimestampTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimestampTable.h; sourceTree = SOURCE_ROOT; };
 		2701B94F1ABDE6C5009CBD13 /* CategoryTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CategoryTable.h; sourceTree = SOURCE_ROOT; };
 		2701B9501ABDE6D0009CBD13 /* KeywordTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeywordTable.h; sourceTree = SOURCE_ROOT; };
-		27BDF0B91ABE5DC0009E0C8F /* TestClasses.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestClasses.cpp; sourceTree = SOURCE_ROOT; };
+		27B541991AC24FB3008E1B75 /* EntryIDTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntryIDTable.h; sourceTree = SOURCE_ROOT; };
 		27BDF0BA1ABE5DC0009E0C8F /* TestClasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestClasses.h; sourceTree = SOURCE_ROOT; };
 		27BDF0BC1ABE6905009E0C8F /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = SOURCE_ROOT; };
 		27E638DE1AB89557004437F3 /* EECS 281 Project 3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "EECS 281 Project 3"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,7 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				27BDF0BA1ABE5DC0009E0C8F /* TestClasses.h */,
-				27BDF0B91ABE5DC0009E0C8F /* TestClasses.cpp */,
 			);
 			name = Test;
 			sourceTree = "<group>";
@@ -97,6 +95,7 @@
 				2701B94E1ABDE6A2009CBD13 /* TimestampTable.h */,
 				2701B94F1ABDE6C5009CBD13 /* CategoryTable.h */,
 				2701B9501ABDE6D0009CBD13 /* KeywordTable.h */,
+				27B541991AC24FB3008E1B75 /* EntryIDTable.h */,
 				27BDF0BC1ABE6905009E0C8F /* Makefile */,
 				2701B9491ABDDF6D009CBD13 /* Proj3Files */,
 				27BDF0B81ABE5D75009E0C8F /* Test */,
@@ -161,7 +160,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				27BDF0BD1ABE6905009E0C8F /* Makefile in Sources */,
-				27BDF0BB1ABE5DC0009E0C8F /* TestClasses.cpp in Sources */,
 				27E638EA1AB89724004437F3 /* logman.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -18,35 +18,35 @@ private:
 	static const int cat_prime = 599;
 	static const int dog_prime = 97;
 
-	CatTable table;
+	CatTable c_table;
 
-	int hash(string* &str);
+	int cat_hash(string* &str);
 
 public:
 	CategoryTable();
 
-	void insert_log(Log* log);
+	void  insert_cat_log(Log* log);
 
-	LogQueue* get_logs(string* &cat);
+	LogQueue* get_cat_logs(string* &cat);
 };
 
 CategoryTable::CategoryTable() {}
 
-void CategoryTable::insert_log(Log* log) {
+void CategoryTable:: insert_cat_log(Log* log) {
 
 	string* s = log->get_category();
-	int key = hash(s);
+	int key = cat_hash(s);
 
-	table.insert(CatTable::value_type(key, log));
+	c_table.insert(CatTable::value_type(key, log));
 
 	return;
 }
 
-LogQueue* CategoryTable::get_logs(string* &cat) {
+LogQueue* CategoryTable::get_cat_logs(string* &cat) {
 
 	LogQueue* logs = new LogQueue ();
 
-	pair <CatTable::iterator, CatTable::iterator> cats = table.equal_range(hash(cat));
+	pair <CatTable::iterator, CatTable::iterator> cats = c_table.equal_range(cat_hash(cat));
 
 	for (CatTable::iterator it = cats.first; it != cats.second; ++it) {
 		if (!strcmp(cat->c_str(), it->second->get_category()->c_str())) {
@@ -57,7 +57,7 @@ LogQueue* CategoryTable::get_logs(string* &cat) {
 	return logs;
 }
 
-int CategoryTable::hash(string* &str) {
+int CategoryTable::cat_hash(string* &str) {
 
 	int key = 0;
 

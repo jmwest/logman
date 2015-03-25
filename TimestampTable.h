@@ -18,33 +18,33 @@ private:
 	static const int day_prime = 7;
 	static const int second_prime = 971;
 
-	TimeTable table;
+	TimeTable t_table;
 
-	int hash(Log* &log);
-	int hash(int day, int sec);
+	int time_hash(Log* &log);
+	int time_hash(int day, int sec);
 
 	bool time_in_range(string* &time, string* &range_start, string* &range_end);
 
 public:
 	TimestampTable();
 
-	void insert_log(Log* log);
+	void  insert_time_log(Log* log);
 
-	LogQueue* get_logs(string* &time1, string* &time2);
+	LogQueue* get_time_logs(string* &time1, string* &time2);
 };
 
 TimestampTable::TimestampTable() {}
 
-void TimestampTable::insert_log(Log* log) {
+void TimestampTable:: insert_time_log(Log* log) {
 
-	int key = hash(log);
+	int key = time_hash(log);
 
-	table.insert(TimeTable::value_type(key, log));
+	t_table.insert(TimeTable::value_type(key, log));
 
 	return;
 }
 
-LogQueue* TimestampTable::get_logs(string* &time1, string* &time2) {
+LogQueue* TimestampTable::get_time_logs(string* &time1, string* &time2) {
 
 	LogQueue* logs = new LogQueue ();
 
@@ -59,7 +59,7 @@ LogQueue* TimestampTable::get_logs(string* &time1, string* &time2) {
 			break;
 		}
 
-		pair <TimeTable::iterator, TimeTable::iterator> stamps = table.equal_range(hash(start_day, start_second));
+		pair <TimeTable::iterator, TimeTable::iterator> stamps = t_table.equal_range(time_hash(start_day, start_second));
 
 		for (TimeTable::iterator it = stamps.first; it != stamps.second; ++it) {
 
@@ -80,14 +80,14 @@ LogQueue* TimestampTable::get_logs(string* &time1, string* &time2) {
 	return logs;
 }
 
-int TimestampTable::hash(Log* &log) {
+int TimestampTable::time_hash(Log* &log) {
 	int key_p1 = ((log->get_month()*100) + log->get_day())/day_prime;
 	int key_p2 = ((log->get_hour()*10000) + (log->get_minute()*100) + log->get_second())/second_prime;
 
 	return key_p1*1000 + key_p2;
 }
 
-int TimestampTable::hash(int day, int sec) {
+int TimestampTable::time_hash(int day, int sec) {
 	return (day / day_prime)*1000 + sec/second_prime;
 }
 
