@@ -11,16 +11,11 @@
 
 #include "Log.h"
 
-typedef unordered_multimap <int, Log*> CatTable;
+typedef unordered_multimap <string, Log*> CatTable;
 
 class CategoryTable {
 private:
-	static const int cat_prime = 599;
-	static const int dog_prime = 97;
-
 	CatTable c_table;
-
-	int cat_hash(string &str);
 
 public:
 	CategoryTable();
@@ -35,9 +30,12 @@ CategoryTable::CategoryTable() {}
 void CategoryTable:: insert_cat_log(Log* log) {
 
 	string s = *log->get_category();
-	int key = cat_hash(s);
 
-	c_table.insert(CatTable::value_type(key, log));
+	for (int i = 0; i < int(s.length()); ++i) {
+		s.at(i) = tolower(s.at(i));
+	}
+
+	c_table.insert(CatTable::value_type(s, log));
 
 	return;
 }
@@ -46,26 +44,17 @@ LogQueue CategoryTable::get_cat_logs(string &cat) {
 
 	LogQueue logs = LogQueue();
 
-	pair <CatTable::iterator, CatTable::iterator> cats = c_table.equal_range(cat_hash(cat));
+	for (int i = 0; i < int(cat.length()); ++i) {
+		cat.at(i) = tolower(cat.at(i));
+	}
+
+	pair <CatTable::iterator, CatTable::iterator> cats = c_table.equal_range(cat);
 
 	for (CatTable::iterator it = cats.first; it != cats.second; ++it) {
-		if (!strcmp(cat.c_str(), it->second->get_category()->c_str())) {
-			logs.push(it->second);
-		}
+		logs.push(it->second);
 	}
 
 	return logs;
-}
-
-int CategoryTable::cat_hash(string &str) {
-
-	int key = 0;
-
-	for (int i = 1; i <= int(str.length()); ++i) {
-		key += (i * i * cat_prime * atoi(&str.at(i - 1))) / dog_prime;
-	}
-
-	return key;
 }
 
 #endif

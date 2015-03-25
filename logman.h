@@ -42,7 +42,7 @@ void keyword_search(KeywordTable* &key_table, LogQueue &command_results, string 
 
 void insert_log_entry(EntryIDTable* &entry_table, vector <Log*> &excerpt_list, string &input);
 
-void insert_search_results(vector <Log*> &excerpt_list, LogQueue &command_results);
+void insert_search_results(vector <Log*> &excerpt_list, LogQueue command_results);
 
 void delete_log_entry(vector <Log*> &excerpt_list, string &input);
 

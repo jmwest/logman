@@ -187,12 +187,20 @@ help:
 #####################
 # MY OWN TEST CASES #
 #####################
-buildTestClasses : log.h TimestampTable.h CategoryTable.h KeywordTable.h TestClasses.h TestClasses.cpp
+buildTestClasses : Log.h TimestampTable.h CategoryTable.h KeywordTable.h EntryIDTable.h TestClasses.h TestClasses.cpp
 	rm -f testClasses
 	g++ $(CXXFLAGS) -O3 TestClasses.cpp -o testClasses
 
 testClasses : buildTestClasses
 	./testClasses
+
+buildTestCases : Log.h TimestampTable.h CategoryTable.h KeywordTable.h EntryIDTable.h logman.h logman.cpp
+	rm -f logman
+	g++ $(CXXFLAGS) -O3 logman.cpp -o logman
+
+testCases : buildTestCases
+	./logman test-1-log.txt < test-1-cmds.txt > test-1-out.txt
+	diff -q test-1-out.txt test-1-correct.txt
 
 #######################
 # TODO (begin) #

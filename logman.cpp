@@ -177,13 +177,13 @@ void timestamp_search(TimestampTable* &time_table, LogQueue &command_results, st
 
 	int time_begin = 2;
 	for (int i = 2; i <= int(input.length()); ++i) {
-		if (input.at(i) == '|') {
+		if (i == int(input.length())) {
+			end = input.substr(time_begin, i - time_begin);
+		}
+		else if (input.at(i) == '|') {
 			start = input.substr(time_begin, i - time_begin);
 
 			time_begin = i + 1;
-		}
-		else if (i == int(input.length())) {
-			end = input.substr(time_begin, i - time_begin);
 		}
 	}
 
@@ -228,7 +228,7 @@ void insert_log_entry(EntryIDTable* &entry_table, vector <Log*> &excerpt_list, s
 	return;
 }
 
-void insert_search_results(vector <Log*> &excerpt_list, LogQueue &command_results) {
+void insert_search_results(vector <Log*> &excerpt_list, LogQueue command_results) {
 
 	while (!command_results.empty()) {
 		excerpt_list.push_back(command_results.top());
@@ -255,7 +255,7 @@ void delete_log_entry(vector <Log*> &excerpt_list, string &input) {
 void move_to_beginning(vector <Log*> &excerpt_list, string &input) {
 
 	int excerpt_id = stoi(input.substr(2));
-	
+
 	if (excerpt_id < int(excerpt_list.size())) {
 		Log* move = excerpt_list.at(excerpt_id);
 		excerpt_list.erase(excerpt_list.begin() + excerpt_id);
@@ -271,7 +271,7 @@ void move_to_beginning(vector <Log*> &excerpt_list, string &input) {
 void move_to_end(vector <Log*> &excerpt_list, string &input) {
 
 	int excerpt_id = stoi(input.substr(2));
-	
+
 	if (excerpt_id < int(excerpt_list.size())) {
 		Log* move = excerpt_list.at(excerpt_id);
 		excerpt_list.erase(excerpt_list.begin() + excerpt_id);
