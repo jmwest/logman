@@ -10,33 +10,40 @@
 #define EECS_281_Project_3_EntryIDTable_h
 
 #include "Log.h"
-
-typedef unordered_multimap <int, Log*> EntryTable;
+#include <iostream>
+#include <exception>
 
 class EntryIDTable {
 private:
-	EntryTable e_table;
+	vector <Log*> e_table;
 
 public:
 	EntryIDTable();
+	~EntryIDTable();
 
-	void  insert_entry_log(Log* log);
+	void insert_entry_log(Log* log);
 
 	Log* get_entry_log(int entry_id);
 };
 
 EntryIDTable::EntryIDTable() {}
 
+EntryIDTable::~EntryIDTable() {
+	for (int i = int(e_table.size()) - 1; i >= 0; --i) {
+		delete e_table.at(i); e_table.at(i) = nullptr;
+	}
+}
+
 void EntryIDTable:: insert_entry_log(Log* log) {
 
-	e_table.insert(EntryTable::value_type(log->get_entry_id(), log));
+	e_table.push_back(log);
 
 	return;
 }
 
 Log* EntryIDTable::get_entry_log(int entry_id) {
 
-	return e_table.find(entry_id)->second;
+	return e_table.at(entry_id);
 }
 
 #endif

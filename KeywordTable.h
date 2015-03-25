@@ -22,7 +22,7 @@ public:
 
 	void  insert_word_log(Log* log);
 
-	LogQueue* get_word_logs(string* &words);
+	LogQueue get_word_logs(string &words);
 };
 
 KeywordTable::KeywordTable() {}
@@ -57,9 +57,9 @@ void KeywordTable:: insert_word_log(Log* log) {
 	return;
 }
 
-LogQueue* KeywordTable::get_word_logs(string* &words) {
+LogQueue KeywordTable::get_word_logs(string &words) {
 
-	LogQueue* logs = new LogQueue ();
+	LogQueue logs = LogQueue();
 
 	vector <string> individual_words;
 
@@ -67,17 +67,17 @@ LogQueue* KeywordTable::get_word_logs(string* &words) {
 	deque <Log*>* to_use = &one;
 	deque <Log*>* current_min = &two;
 
-	for (int i = 0; i < int(words->size()); ++i) {
-		words->at(i) = std::tolower(words->at(i));
+	for (int i = 0; i < int(words.size()); ++i) {
+		words.at(i) = std::tolower(words.at(i));
 	}
 
 	int word_start = 0;
-	for (int i = 0; i <= int(words->length()); ++i) {
+	for (int i = 0; i <= int(words.length()); ++i) {
 
-		if ((i == int(words->length())) || !isalnum(int(words->at(i)))) {
+		if ((i == int(words.length())) || !isalnum(int(words.at(i)))) {
 
 			if (word_start != i) {
-				individual_words.push_back(words->substr(word_start, i - word_start));
+				individual_words.push_back(words.substr(word_start, i - word_start));
 			}
 
 			word_start = i + 1;
@@ -131,7 +131,7 @@ LogQueue* KeywordTable::get_word_logs(string* &words) {
 		}
 
 		if (add_log) {
-			logs->push(log);
+			logs.push(log);
 		}
 
 		current_min->pop_front();

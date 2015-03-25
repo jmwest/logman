@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 	TimestampTable* time_table_ptr = &time_table;
 	CategoryTable* cat_table_ptr = &cat_table;
 	KeywordTable* key_table_ptr = &key_table;
-	EntryIDTable* entry_table_ptr;
+	EntryIDTable* entry_table_ptr = &entry_table;
 
 	parse_command_line_input(argc, argv, file_stream);
 
@@ -62,7 +62,7 @@ void parse_command_line_input(int & argc, char *argv[], ifstream &file_stream) {
 		} // switch
 	} // while
 
-	file_stream = ifstream(argv[1]);
+	file_stream.open(argv[1]);
 
 	return;
 } // parse_command_line_input
@@ -70,16 +70,22 @@ void parse_command_line_input(int & argc, char *argv[], ifstream &file_stream) {
 void input_master_log_file(ifstream &file_stream, TimestampTable* &time_table, CategoryTable* &cat_table, KeywordTable* &key_table, EntryIDTable* &entry_table) {
 
 	string str_in;
-	string* str_in_ptr;
+	int num_logs = 0;
 
 	while (getline(file_stream, str_in)) {
-		Log* wood = create_log(str_in_ptr);
 
-		time_table->insert_time_log(wood);
-		cat_table->insert_cat_log(wood);
-		key_table->insert_word_log(wood);
-		entry_table->insert_entry_log(wood);
+		if (int(str_in.size()) > 0) {
+			Log* wood = create_log(str_in);
+			++num_logs;
+
+			time_table->insert_time_log(wood);
+			cat_table->insert_cat_log(wood);
+			key_table->insert_word_log(wood);
+			entry_table->insert_entry_log(wood);
+		}
 	}
+
+	cout << num_logs << " entries loaded\n";
 
 	return;
 }
@@ -87,14 +93,14 @@ void input_master_log_file(ifstream &file_stream, TimestampTable* &time_table, C
 void take_user_input(TimestampTable* &time_table, CategoryTable* &cat_table, KeywordTable* &key_table, EntryIDTable* &entry_table) {
 
 	vector <Log*> excerpt_list;
-	LogQueue* command_results;
+	LogQueue command_results;
 
 	string user_input;
 	bool take_input = true;
 
-	print_input_signal();
-
 	while (take_input) {
+
+		print_input_signal();
 
 		getline(cin, user_input);
 
@@ -165,7 +171,7 @@ void take_user_input(TimestampTable* &time_table, CategoryTable* &cat_table, Key
 }
 
 // searching commands
-void timestamp_search(TimestampTable* &time_table, LogQueue* &command_results, string &input) {
+void timestamp_search(TimestampTable* &time_table, LogQueue &command_results, string &input) {
 
 	string start, end;
 
@@ -185,46 +191,30 @@ void timestamp_search(TimestampTable* &time_table, LogQueue* &command_results, s
 		print_input_error();
 	}
 
-	if (!command_results->empty()) {
-		delete command_results; command_results = nullptr;
-	}
 
-	string* start_ptr = &start;
-	string* end_ptr = &end;
+	command_results = time_table->get_time_logs(start, end);
 
-	command_results = time_table->get_time_logs(start_ptr, end_ptr);
-
-	cout << command_results->size() << "\n";
+	cout << command_results.size() << "\n";
 
 	return;
 }
 
-void category_search(CategoryTable* &cat_table, LogQueue* &command_results, string &input) {
+void category_search(CategoryTable* &cat_table, LogQueue &command_results, string &input) {
 
-	if (!command_results->empty()) {
-		delete command_results; command_results = nullptr;
-	}
-
-	string* category = &input;
-
+	string category = input.substr(2);
 	command_results = cat_table->get_cat_logs(category);
 
-	cout << command_results->size() << "\n";
+	cout << command_results.size() << "\n";
 
 	return;
 }
 
-void keyword_search(KeywordTable* &key_table, LogQueue* &command_results, string &input) {
+void keyword_search(KeywordTable* &key_table, LogQueue &command_results, string &input) {
 
-	if (!command_results->empty()) {
-		delete command_results; command_results = nullptr;
-	}
-
-	string* keywords = &input;
-
+	string keywords = input.substr(2);
 	command_results = key_table->get_word_logs(keywords);
 
-	cout << command_results->size() << "\n";
+	cout << command_results.size() << "\n";
 
 	return;
 }
@@ -238,11 +228,11 @@ void insert_log_entry(EntryIDTable* &entry_table, vector <Log*> &excerpt_list, s
 	return;
 }
 
-void insert_search_results(vector <Log*> &excerpt_list, LogQueue* &command_results) {
+void insert_search_results(vector <Log*> &excerpt_list, LogQueue &command_results) {
 
-	while (!command_results->empty()) {
-		excerpt_list.push_back(command_results->top());
-		command_results->pop();
+	while (!command_results.empty()) {
+		excerpt_list.push_back(command_results.top());
+		command_results.pop();
 	}
 
 	return;
@@ -296,7 +286,7 @@ void move_to_end(vector <Log*> &excerpt_list, string &input) {
 
 void sort_excerpt_list(vector <Log*> &excerpt_list) {
 
-	sort(excerpt_list.begin(), excerpt_list.end(), LogComparator());
+	sort(excerpt_list.begin(), excerpt_list.end(), MinLogComparator());
 
 	return;
 }
@@ -309,15 +299,14 @@ void clear_excerpt_list(vector <Log*> &excerpt_list) {
 }
 
 // output commands
-void print_recent_searches(LogQueue* &command_results) {
-
-	if (!command_results) { return; }
+void print_recent_searches(LogQueue command_results) {
 
 	ostringstream ss;
-	Log* entry;
-	while (!command_results->empty()) {
-		entry = command_results->top();
-		ss << entry->get_entry_id() << "|" << entry->get_time_stamp() << "|" << entry->get_category() << "|" << entry->get_message() << "\n";
+	while (!command_results.empty()) {
+		Log* entry = command_results.top();
+		ss << entry->get_entry_id() << "|" << *entry->get_time_stamp() << "|" << *entry->get_category() << "|" << *entry->get_message() << "\n";
+
+		command_results.pop();
 	}
 
 	cout << ss.str();
@@ -331,7 +320,7 @@ void print_excerpt_list(vector <Log*> &excerpt_list) {
 	Log* entry;
 	for (int i = 0; i < int(excerpt_list.size()); ++i) {
 		entry = excerpt_list.at(i);
-		ss << i << "|" << entry->get_entry_id() << "|" << entry->get_time_stamp() << "|" << entry->get_category() << "|" << entry->get_message() << "\n";
+		ss << i << "|" << entry->get_entry_id() << "|" << *entry->get_time_stamp() << "|" << *entry->get_category() << "|" << *entry->get_message() << "\n";
 	}
 
 	cout << ss.str();
@@ -340,22 +329,19 @@ void print_excerpt_list(vector <Log*> &excerpt_list) {
 }
 
 // Misc
-Log* create_log(string* &str) {
-	string time = str->substr(0, 14);
+Log* create_log(string &str) {
+
+	string time = str.substr(0, 14);
 	string cat;
 	string mess;
 
-	size_t time_end = str->find('|');
-	size_t cat_end = str->find('|', time_end + 1);
+	size_t time_end = str.find('|');
+	size_t cat_end = str.find('|', time_end + 1);
 
-	cat = str->substr(time_end + 1, cat_end - time_end - 1);
-	mess = str->substr(cat_end + 1);
+	cat = str.substr(time_end + 1, cat_end - time_end - 1);
+	mess = str.substr(cat_end + 1);
 
-	string* time_ptr = &time;
-	string* cat_ptr = &cat;
-	string* mess_ptr = &mess;
-
-	return new Log(time_ptr, cat_ptr, mess_ptr);
+	return new Log(time, cat, mess);
 }
 
 void print_input_signal() {

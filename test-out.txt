@@ -1,0 +1,16 @@
+18 entries loaded
+%3
+%%0|10|07:02:10:12:43|PGM|Beginning master election.
+%2
+%3
+%%0|10|07:02:10:12:43|PGM|Beginning master election.
+1|5|01:07:08:12:00|UI-PANE2|Window received focus.
+2|1|12:15:20:56:23|UI-PANE1|Window received focus.
+3|8|12:15:20:56:50|UI-PANE1|Click event served.
+%%%0|1|12:15:20:56:23|UI-PANE1|Window received focus.
+1|10|07:02:10:12:43|PGM|Beginning master election.
+2|8|12:15:20:56:50|UI-PANE1|Click event served.
+%%0|10|07:02:10:12:43|PGM|Beginning master election.
+1|1|12:15:20:56:23|UI-PANE1|Window received focus.
+2|8|12:15:20:56:50|UI-PANE1|Click event served.
+%

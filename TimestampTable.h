@@ -20,17 +20,17 @@ private:
 
 	TimeTable t_table;
 
-	int time_hash(Log* &log);
+	int time_hash(Log* log);
 	int time_hash(int day, int sec);
 
-	bool time_in_range(string* &time, string* &range_start, string* &range_end);
+	bool time_in_range(string &time, string &range_start, string &range_end);
 
 public:
 	TimestampTable();
 
 	void  insert_time_log(Log* log);
 
-	LogQueue* get_time_logs(string* &time1, string* &time2);
+	LogQueue get_time_logs(string &time1, string &time2);
 };
 
 TimestampTable::TimestampTable() {}
@@ -44,15 +44,15 @@ void TimestampTable:: insert_time_log(Log* log) {
 	return;
 }
 
-LogQueue* TimestampTable::get_time_logs(string* &time1, string* &time2) {
+LogQueue TimestampTable::get_time_logs(string &time1, string &time2) {
 
-	LogQueue* logs = new LogQueue ();
+	LogQueue logs = LogQueue();
 
-	int start_day = (stoi(time1->substr(0,2))*100) + stoi(time1->substr(3,2));
-	int start_second = (stoi(time1->substr(6,2))*10000) + (stoi(time1->substr(9,2))*100) + stoi(time1->substr(12,2));
+	int start_day = (stoi(time1.substr(0,2))*100) + stoi(time1.substr(3,2));
+	int start_second = (stoi(time1.substr(6,2))*10000) + (stoi(time1.substr(9,2))*100) + stoi(time1.substr(12,2));
 
-	int end_day = (stoi(time2->substr(0,2))*100) + stoi(time2->substr(3,2));
-	int end_second = (stoi(time2->substr(6,2))*10000) + (stoi(time2->substr(9,2))*100) + stoi(time2->substr(12,2));
+	int end_day = (stoi(time2.substr(0,2))*100) + stoi(time2.substr(3,2));
+	int end_second = (stoi(time2.substr(6,2))*10000) + (stoi(time2.substr(9,2))*100) + stoi(time2.substr(12,2));
 
 	while ((start_day <= end_day)) {
 		if ((start_day == end_day) && (start_second >= end_second)) {
@@ -63,9 +63,9 @@ LogQueue* TimestampTable::get_time_logs(string* &time1, string* &time2) {
 
 		for (TimeTable::iterator it = stamps.first; it != stamps.second; ++it) {
 
-			string* current_time = it->second->get_time_stamp();
+			string current_time = *it->second->get_time_stamp();
 			if (time_in_range(current_time, time1, time2)) {
-				logs->push(it->second);
+				logs.push(it->second);
 			}
 		}
 
@@ -80,7 +80,7 @@ LogQueue* TimestampTable::get_time_logs(string* &time1, string* &time2) {
 	return logs;
 }
 
-int TimestampTable::time_hash(Log* &log) {
+int TimestampTable::time_hash(Log* log) {
 	int key_p1 = ((log->get_month()*100) + log->get_day())/day_prime;
 	int key_p2 = ((log->get_hour()*10000) + (log->get_minute()*100) + log->get_second())/second_prime;
 
@@ -91,9 +91,9 @@ int TimestampTable::time_hash(int day, int sec) {
 	return (day / day_prime)*1000 + sec/second_prime;
 }
 
-bool TimestampTable::time_in_range(string* &time, string* &range_start, string* &range_end) {
+bool TimestampTable::time_in_range(string &time, string &range_start, string &range_end) {
 
-	return (((*time) >= (*range_start)) && ((*time) < (*range_end)));
+	return (((time) >= (range_start)) && ((time) < (range_end)));
 }
 
 

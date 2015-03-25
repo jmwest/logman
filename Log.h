@@ -11,10 +11,13 @@
 
 #include <stdio.h>
 
+#include <algorithm>
 #include <string>
+#include <cstring>
 #include <queue>
 #include <unordered_map>
 
+#include <iostream>
 using namespace std;
 
 class Log {
@@ -34,7 +37,7 @@ private:
 	string message;
 
 public:
-	Log(string* &timestamp_in, string* &category_in, string* &message_in);
+	Log(string &timestamp_in, string &category_in, string &message_in);
 
 	int get_entry_id() { return entry_id; }
 	
@@ -52,21 +55,21 @@ public:
 
 int Log::count = 0;
 
-Log::Log(string* &timestamp_in, string* &category_in, string* &message_in)
-:entry_id(count++), timestamp(*timestamp_in), category(*category_in), message(*message_in) {
+Log::Log(string &timestamp_in, string &category_in, string &message_in)
+:entry_id(count++), timestamp(timestamp_in), category(category_in), message(message_in) {
 
-	month = stoi(timestamp_in->substr(0,2));
-	day = stoi(timestamp_in->substr(3,2));
-	hour = stoi(timestamp_in->substr(6,2));
-	minute = stoi(timestamp_in->substr(9,2));
-	second = stoi(timestamp_in->substr(12,2));
+	month = stoi(timestamp_in.substr(0,2));
+	day = stoi(timestamp_in.substr(3,2));
+	hour = stoi(timestamp_in.substr(6,2));
+	minute = stoi(timestamp_in.substr(9,2));
+	second = stoi(timestamp_in.substr(12,2));
 }
 
 // Other comparator and type definitions
 
-class LogComparator {
+class MaxLogComparator {
 public:
-	bool operator() (Log* &one, Log* &two) {
+	bool operator() (Log* const &one, Log* const &two) {
 		if (one->get_month() > two->get_month()) {
 			return true;
 		}
@@ -86,13 +89,15 @@ public:
 						if (one->get_second() > two->get_second()) {
 							return true;
 						}
-						
-						else if (one->get_category() > two->get_category()) {
-							return true;
-						}
-						else if (one->get_category() == two->get_category()) {
-							if (one->get_entry_id() < two->get_entry_id()) {
+
+						else if (one->get_second() == two->get_second()) {
+							if (one->get_category() > two->get_category()) {
 								return true;
+							}
+							else if (one->get_category() == two->get_category()) {
+								if (one->get_entry_id() > two->get_entry_id()) {
+									return true;
+								}
 							}
 						}
 					}
@@ -104,6 +109,97 @@ public:
 	}
 };
 
-typedef priority_queue <Log*, vector <Log*>, LogComparator> LogQueue;
+class MinLogComparator {
+public:
+	bool operator() (Log* const &one, Log* const &two) {
+		if (one->get_month() < two->get_month()) {
+			return true;
+		}
+		else if (one->get_month() == two->get_month()) {
+			if (one->get_day() < two->get_day()) {
+				return true;
+			}
+			else if (one->get_day() == two->get_day()) {
+				if (one->get_hour() < two->get_hour()) {
+					return true;
+				}
+				else if (one->get_hour() == two->get_hour()) {
+					if (one->get_minute() < two->get_minute()) {
+						return true;
+					}
+					else if (one->get_minute() == two->get_minute()) {
+						if (one->get_second() < two->get_second()) {
+							return true;
+						}
+						
+						else if (one->get_second() == two->get_second()) {
+							if (one->get_category() < two->get_category()) {
+								return true;
+							}
+							else if (one->get_category() == two->get_category()) {
+								if (one->get_entry_id() < two->get_entry_id()) {
+									return true;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+};
+
+//class LogComparator {
+//private:
+//	bool max;
+//
+//public:
+//	LogComparator()
+//	: max(true) {}
+//
+//	LogComparator(bool max_in)
+//	: max(max_in) {}
+//
+//	bool operator() (Log* &one, Log* &two) {
+//		if (one->get_month() > two->get_month()) {
+//			return max;
+//		}
+//		else if (one->get_month() == two->get_month()) {
+//			if (one->get_day() > two->get_day()) {
+//				return max;
+//			}
+//			else if (one->get_day() == two->get_day()) {
+//				if (one->get_hour() > two->get_hour()) {
+//					return max;
+//				}
+//				else if (one->get_hour() == two->get_hour()) {
+//					if (one->get_minute() > two->get_minute()) {
+//						return max;
+//					}
+//					else if (one->get_minute() == two->get_minute()) {
+//						if (one->get_second() > two->get_second()) {
+//							return max;
+//						}
+//						
+//						else if (one->get_category() > two->get_category()) {
+//							return max;
+//						}
+//						else if (one->get_category() == two->get_category()) {
+//							if (one->get_entry_id() < two->get_entry_id()) {
+//								return max;
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//
+//		return !max;
+//	}
+//};
+
+typedef priority_queue <Log*, vector <Log*>, MaxLogComparator> LogQueue;
 
 #endif
