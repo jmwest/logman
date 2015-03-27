@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		27BDF0BD1ABE6905009E0C8F /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF0BC1ABE6905009E0C8F /* Makefile */; };
+		27DFAAB91AC4846F00D29CDB /* TestClasses.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27DFAAB81AC4846F00D29CDB /* TestClasses.cpp */; };
 		27E638EA1AB89724004437F3 /* logman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27E638E81AB89724004437F3 /* logman.cpp */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		27CE8C2F1AC3493B005C9106 /* test-2-log.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "test-2-log.txt"; path = "Proj3Files/test-2-log.txt"; sourceTree = SOURCE_ROOT; };
 		27CE8C301AC34E79005C9106 /* test-1-correct.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-1-correct.txt"; sourceTree = SOURCE_ROOT; };
 		27CE8C311AC379D0005C9106 /* test-1-out.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-1-out.txt"; sourceTree = SOURCE_ROOT; };
+		27DFAAB81AC4846F00D29CDB /* TestClasses.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestClasses.cpp; path = Proj3Files/TestClasses.cpp; sourceTree = SOURCE_ROOT; };
 		27E638DE1AB89557004437F3 /* EECS 281 Project 3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "EECS 281 Project 3"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27E638E81AB89724004437F3 /* logman.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logman.cpp; sourceTree = SOURCE_ROOT; };
 		27E638E91AB89724004437F3 /* logman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logman.h; sourceTree = SOURCE_ROOT; };
@@ -80,6 +82,7 @@
 				27CE8C2F1AC3493B005C9106 /* test-2-log.txt */,
 				27CE8C2E1AC3493B005C9106 /* test-2-cmds.txt */,
 				27B5419A1AC267CA008E1B75 /* TestClasses.h */,
+				27DFAAB81AC4846F00D29CDB /* TestClasses.cpp */,
 			);
 			name = Test;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27BDF0BD1ABE6905009E0C8F /* Makefile in Sources */,
+				27DFAAB91AC4846F00D29CDB /* TestClasses.cpp in Sources */,
 				27E638EA1AB89724004437F3 /* logman.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

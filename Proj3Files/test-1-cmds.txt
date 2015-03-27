@@ -18,3 +18,22 @@ p
 b 11
 p
 q
+
+tcp tasty crumpet--pastries!!@i&ate_4!!
+tcp bad crumpet received (crumpetid #12353)
+crumpet-mgr crumpetid=blueberry/raspberry/lemonberry
+ui-crumpet2 crumpet received focus.
+crumpet-mgr crumpet1 results received ("select tcp from eaters")
+ui-crumpet-1 crumpe-t event served.
+tea-english-breakfast teabag #4 steeped with crumpet #3
+tcp bad crumpet received (crumpetid #12354)
+help jeeves attempted to grab crumpet #3 held by guest #4
+
+tcp tasty crumpet--pastries!!@i&ate_4!!
+tcp bad crumpet received (crumpetid #12353)
+crumpet-mgr crumpetid=blueberry/raspberry/lemonberry
+crumpet-mgr crumpet1 results received ("select tcp from eaters")
+ui-crumpet-1 crumpe-t event served.
+tea-english-breakfast teabag #4 steeped with crumpet #3
+tcp bad crumpet received (crumpetid #12354)
+help jeeves attempted to grab crumpet #3 held by guest #4

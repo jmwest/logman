@@ -34,6 +34,8 @@ private:
 
 	string category;
 
+	string lower_case_string;
+
 	string message;
 
 public:
@@ -50,6 +52,8 @@ public:
 
 	string* get_category() { return &category; }
 
+	string* get_lower_case_string() { return &lower_case_string; }
+
 	string* get_message() { return &message; }
 };
 
@@ -57,6 +61,12 @@ int Log::count = 0;
 
 Log::Log(string &timestamp_in, string &category_in, string &message_in)
 :entry_id(count++), timestamp(timestamp_in), category(category_in), message(message_in) {
+
+	lower_case_string = category_in + ' ' + message_in;
+
+	for (int i = 0; i < int(lower_case_string.length()); ++i) {
+		lower_case_string.at(i) = tolower(lower_case_string.at(i));
+	}
 
 	month = stoi(timestamp_in.substr(0,2));
 	day = stoi(timestamp_in.substr(3,2));
@@ -91,10 +101,10 @@ public:
 						}
 
 						else if (one->get_second() == two->get_second()) {
-							if (one->get_category() > two->get_category()) {
+							if (*one->get_category() > *two->get_category()) {
 								return true;
 							}
-							else if (one->get_category() == two->get_category()) {
+							else if (*one->get_category() == *two->get_category()) {
 								if (one->get_entry_id() > two->get_entry_id()) {
 									return true;
 								}
@@ -133,10 +143,10 @@ public:
 						}
 						
 						else if (one->get_second() == two->get_second()) {
-							if (one->get_category() < two->get_category()) {
+							if (*one->get_category() < *two->get_category()) {
 								return true;
 							}
-							else if (one->get_category() == two->get_category()) {
+							else if (*one->get_category() == *two->get_category()) {
 								if (one->get_entry_id() < two->get_entry_id()) {
 									return true;
 								}
