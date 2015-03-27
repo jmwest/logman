@@ -46,6 +46,8 @@ void TimestampTable:: insert_time_log(Log* log) {
 
 LogQueue TimestampTable::get_time_logs(string &time1, string &time2) {
 
+	cerr << "\n_________________________________________________" << endl;
+	cerr << "Timestamp search\n";
 	LogQueue logs = LogQueue();
 
 	int start_day = (stoi(time1.substr(0,2))*100) + stoi(time1.substr(3,2));
@@ -65,6 +67,8 @@ LogQueue TimestampTable::get_time_logs(string &time1, string &time2) {
 
 			string current_time = *it->second->get_time_stamp();
 			if (time_in_range(current_time, time1, time2)) {
+				cerr << "\t" << *it->second->get_lower_case_string() << endl;
+
 				logs.push(it->second);
 			}
 		}

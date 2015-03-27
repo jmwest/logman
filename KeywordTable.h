@@ -61,7 +61,7 @@ void KeywordTable:: insert_word_log(Log* log) {
 
 LogQueue KeywordTable::get_word_logs(string &words) {
 
-	cerr << "_________________________________________________" << endl;
+	cerr << "\n_________________________________________________" << endl;
 	cerr << "Keyword search";
 	LogQueue logs = LogQueue();
 
