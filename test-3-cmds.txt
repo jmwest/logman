@@ -10,7 +10,6 @@ d 1
 r
 k crumpet tasty ate tea
 g
-l
 p
 t 00:00:00:00:00|00:00:00:00:01
 r

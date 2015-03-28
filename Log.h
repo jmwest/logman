@@ -14,11 +14,12 @@
 #include <algorithm>
 #include <string>
 #include <cstring>
-#include <queue>
+#include <vector>
 #include <unordered_map>
 #include <map>
 
 #include <iostream>
+
 using namespace std;
 
 class Log {
@@ -98,139 +99,6 @@ public:
 		return false;
 	}
 };
-
-//class MaxLogComparator {
-//public:
-//	bool operator() (Log* const &one, Log* const &two) {
-//		if (one->get_month() > two->get_month()) {
-//			return true;
-//		}
-//		else if (one->get_month() == two->get_month()) {
-//			if (one->get_day() > two->get_day()) {
-//				return true;
-//			}
-//			else if (one->get_day() == two->get_day()) {
-//				if (one->get_hour() > two->get_hour()) {
-//					return true;
-//				}
-//				else if (one->get_hour() == two->get_hour()) {
-//					if (one->get_minute() > two->get_minute()) {
-//						return true;
-//					}
-//					else if (one->get_minute() == two->get_minute()) {
-//						if (one->get_second() > two->get_second()) {
-//							return true;
-//						}
-//
-//						else if (one->get_second() == two->get_second()) {
-//							if (*one->get_category() > *two->get_category()) {
-//								return true;
-//							}
-//							else if (*one->get_category() == *two->get_category()) {
-//								if (one->get_entry_id() > two->get_entry_id()) {
-//									return true;
-//								}
-//							}
-//						}
-//					}
-//				}
-//			}
-//		}
-//		
-//		return false;
-//	}
-//};
-//
-//class MinLogComparator {
-//public:
-//	bool operator() (Log* const &one, Log* const &two) {
-//		if (one->get_month() < two->get_month()) {
-//			return true;
-//		}
-//		else if (one->get_month() == two->get_month()) {
-//			if (one->get_day() < two->get_day()) {
-//				return true;
-//			}
-//			else if (one->get_day() == two->get_day()) {
-//				if (one->get_hour() < two->get_hour()) {
-//					return true;
-//				}
-//				else if (one->get_hour() == two->get_hour()) {
-//					if (one->get_minute() < two->get_minute()) {
-//						return true;
-//					}
-//					else if (one->get_minute() == two->get_minute()) {
-//						if (one->get_second() < two->get_second()) {
-//							return true;
-//						}
-//						
-//						else if (one->get_second() == two->get_second()) {
-//							if (*one->get_category() < *two->get_category()) {
-//								return true;
-//							}
-//							else if (*one->get_category() == *two->get_category()) {
-//								if (one->get_entry_id() < two->get_entry_id()) {
-//									return true;
-//								}
-//							}
-//						}
-//					}
-//				}
-//			}
-//		}
-//		
-//		return false;
-//	}
-//};
-//
-//class LogComparator {
-//private:
-//	bool max;
-//
-//public:
-//	LogComparator()
-//	: max(true) {}
-//
-//	LogComparator(bool max_in)
-//	: max(max_in) {}
-//
-//	bool operator() (Log* &one, Log* &two) {
-//		if (one->get_month() > two->get_month()) {
-//			return max;
-//		}
-//		else if (one->get_month() == two->get_month()) {
-//			if (one->get_day() > two->get_day()) {
-//				return max;
-//			}
-//			else if (one->get_day() == two->get_day()) {
-//				if (one->get_hour() > two->get_hour()) {
-//					return max;
-//				}
-//				else if (one->get_hour() == two->get_hour()) {
-//					if (one->get_minute() > two->get_minute()) {
-//						return max;
-//					}
-//					else if (one->get_minute() == two->get_minute()) {
-//						if (one->get_second() > two->get_second()) {
-//							return max;
-//						}
-//						
-//						else if (one->get_category() > two->get_category()) {
-//							return max;
-//						}
-//						else if (one->get_category() == two->get_category()) {
-//							if (one->get_entry_id() < two->get_entry_id()) {
-//								return max;
-//							}
-//						}
-//					}
-//				}
-//			}
-//		}
-//
-//		return !max;
-//	}
-//};
 
 typedef vector <Log*> LogVec;
 
