@@ -28,11 +28,6 @@ private:
 	const int entry_id;
 
 	string timestamp;
-	int month;
-	int day;
-	int hour;
-	int minute;
-	int second;
 
 	string category;
 
@@ -46,11 +41,6 @@ public:
 	int get_entry_id() { return entry_id; }
 	
 	string* get_time_stamp() { return &timestamp; }
-	int get_month() { return month; }
-	int get_day() { return day; }
-	int get_hour() { return hour; }
-	int get_minute() { return minute; }
-	int get_second() { return second; }
 
 	string* get_category() { return &category; }
 
@@ -69,19 +59,13 @@ Log::Log(string &timestamp_in, string &category_in, string &message_in)
 	for (int i = 0; i < int(lower_case_string.length()); ++i) {
 		lower_case_string.at(i) = tolower(lower_case_string.at(i));
 	}
-
-	month = stoi(timestamp_in.substr(0,2));
-	day = stoi(timestamp_in.substr(3,2));
-	hour = stoi(timestamp_in.substr(6,2));
-	minute = stoi(timestamp_in.substr(9,2));
-	second = stoi(timestamp_in.substr(12,2));
 }
 
 // Other comparator and type definitions
 
 class MinLogComparator {
 public:
-	bool operator() (Log* &one, Log* &two) {
+	bool operator() (Log* const &one, Log* const &two) {
 		if (*one->get_time_stamp() < *two->get_time_stamp()) {
 			return true;
 		}

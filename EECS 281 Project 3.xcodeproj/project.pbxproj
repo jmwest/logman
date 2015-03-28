@@ -55,6 +55,8 @@
 		27E5D4D01AC74EC700848041 /* test-3-correct.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-3-correct.txt"; sourceTree = SOURCE_ROOT; };
 		27E5D4D11AC74EC700848041 /* test-3-log.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-3-log.txt"; sourceTree = SOURCE_ROOT; };
 		27E5D4D21AC75F8A00848041 /* test-3-out.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-3-out.txt"; sourceTree = SOURCE_ROOT; };
+		27E5D4D31AC7667A00848041 /* test-4-cmds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-4-cmds.txt"; sourceTree = SOURCE_ROOT; };
+		27E5D4D41AC7667A00848041 /* test-4-log.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-4-log.txt"; sourceTree = SOURCE_ROOT; };
 		27E638DE1AB89557004437F3 /* EECS 281 Project 3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "EECS 281 Project 3"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27E638E81AB89724004437F3 /* logman.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logman.cpp; sourceTree = SOURCE_ROOT; };
 		27E638E91AB89724004437F3 /* logman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logman.h; sourceTree = SOURCE_ROOT; };
@@ -102,6 +104,8 @@
 				27E5D4CF1AC74EC700848041 /* test-3-cmds.txt */,
 				27E5D4D01AC74EC700848041 /* test-3-correct.txt */,
 				27E5D4D21AC75F8A00848041 /* test-3-out.txt */,
+				27E5D4D41AC7667A00848041 /* test-4-log.txt */,
+				27E5D4D31AC7667A00848041 /* test-4-cmds.txt */,
 				27B5419A1AC267CA008E1B75 /* TestClasses.h */,
 				27DFAAB81AC4846F00D29CDB /* TestClasses.cpp */,
 				27E5D4C91AC5ED1B00848041 /* CreateLogFiles.h */,
