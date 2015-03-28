@@ -199,8 +199,10 @@ buildTestCases : Log.h TimestampTable.h CategoryTable.h KeywordTable.h EntryIDTa
 	g++ $(CXXFLAGS) -O3 logman.cpp -o logman
 
 testCases : buildTestCases
+	./logman log-data < excerpt-list-commands > test-spec-out.txt
 	./logman test-1-log.txt < test-1-cmds.txt > test-1-out.txt
-	diff -q test-1-out.txt test-1-correct.txt
+	diff output test-spec-out.txt
+	diff test-1-out.txt test-1-correct.txt
 
 #######################
 # TODO (begin) #

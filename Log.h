@@ -16,6 +16,7 @@
 #include <cstring>
 #include <queue>
 #include <unordered_map>
+#include <map>
 
 #include <iostream>
 using namespace std;
@@ -210,6 +211,6 @@ public:
 //	}
 //};
 
-typedef priority_queue <Log*, vector <Log*>, MaxLogComparator> LogQueue;
+typedef vector <Log> LogVec;
 
 #endif

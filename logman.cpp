@@ -12,15 +12,16 @@
 #include <sstream>
 #include <getopt.h>
 
-void print_input_signal();
+void print_input_signal(ostringstream &ss);
 
-void print_input_error();
+void print_input_error(ostringstream &ss, ostringstream &error_ss);
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
 
 	ifstream file_stream;
+	ostringstream ss, error_ss;
 
 	TimestampTable time_table;
 	CategoryTable cat_table;
@@ -34,9 +35,12 @@ int main(int argc, char *argv[]) {
 
 	parse_command_line_input(argc, argv, file_stream);
 
-	input_master_log_file(file_stream, time_table_ptr, cat_table_ptr, key_table_ptr, entry_table_ptr);
+	input_master_log_file(file_stream, time_table_ptr, cat_table_ptr, key_table_ptr, entry_table_ptr, ss);
 
-	take_user_input(time_table_ptr, cat_table_ptr, key_table_ptr, entry_table_ptr);
+	take_user_input(time_table_ptr, cat_table_ptr, key_table_ptr, entry_table_ptr, ss, error_ss);
+
+	cout << ss.str();
+	cerr << error_ss.str();
 
 	return 0;
 }
@@ -67,7 +71,7 @@ void parse_command_line_input(int & argc, char *argv[], ifstream &file_stream) {
 	return;
 } // parse_command_line_input
 
-void input_master_log_file(ifstream &file_stream, TimestampTable* &time_table, CategoryTable* &cat_table, KeywordTable* &key_table, EntryIDTable* &entry_table) {
+void input_master_log_file(ifstream &file_stream, TimestampTable* &time_table, CategoryTable* &cat_table, KeywordTable* &key_table, EntryIDTable* &entry_table, ostringstream &ss) {
 
 	string str_in;
 	int num_logs = 0;
@@ -85,12 +89,12 @@ void input_master_log_file(ifstream &file_stream, TimestampTable* &time_table, C
 		}
 	}
 
-	cout << num_logs << " entries loaded\n";
+	ss << num_logs << " entries loaded\n";
 
 	return;
 }
 
-void take_user_input(TimestampTable* &time_table, CategoryTable* &cat_table, KeywordTable* &key_table, EntryIDTable* &entry_table) {
+void take_user_input(TimestampTable* &time_table, CategoryTable* &cat_table, KeywordTable* &key_table, EntryIDTable* &entry_table, ostringstream &ss, ostringstream &error_ss) {
 
 	vector <Log*> excerpt_list;
 	LogQueue command_results;
@@ -100,22 +104,22 @@ void take_user_input(TimestampTable* &time_table, CategoryTable* &cat_table, Key
 
 	while (take_input) {
 
-		print_input_signal();
+		print_input_signal(ss);
 
 		getline(cin, user_input);
 
 		switch (user_input.at(0)) {
 			// searching commands
 			case 't':
-				timestamp_search(time_table, command_results, user_input);
+				timestamp_search(time_table, command_results, user_input, ss, error_ss);
 				break;
 
 			case 'c':
-				category_search(cat_table, command_results, user_input);
+				category_search(cat_table, command_results, user_input, ss);
 				break;
 
 			case 'k':
-				keyword_search(key_table, command_results, user_input);
+				keyword_search(key_table, command_results, user_input, ss);
 				break;
 
 			// excerpt list editing commands
@@ -128,15 +132,15 @@ void take_user_input(TimestampTable* &time_table, CategoryTable* &cat_table, Key
 				break;
 
 			case 'd':
-				delete_log_entry(excerpt_list, user_input);
+				delete_log_entry(excerpt_list, user_input, ss, error_ss);
 				break;
 
 			case 'b':
-				move_to_beginning(excerpt_list, user_input);
+				move_to_beginning(excerpt_list, user_input, ss, error_ss);
 				break;
 
 			case 'e':
-				move_to_end(excerpt_list, user_input);
+				move_to_end(excerpt_list, user_input, ss, error_ss);
 				break;
 
 			case 's':
@@ -149,11 +153,11 @@ void take_user_input(TimestampTable* &time_table, CategoryTable* &cat_table, Key
 
 			// output commands
 			case 'g':
-				print_recent_searches(command_results);
+				print_recent_searches(command_results, ss);
 				break;
 
 			case 'p':
-				print_excerpt_list(excerpt_list);
+				print_excerpt_list(excerpt_list, ss);
 				break;
 
 			// miscellaneous
@@ -162,7 +166,7 @@ void take_user_input(TimestampTable* &time_table, CategoryTable* &cat_table, Key
 				break;
 
 			default:
-				print_input_error();
+				print_input_error(ss, error_ss);
 				break;
 		}
 	}
@@ -171,7 +175,7 @@ void take_user_input(TimestampTable* &time_table, CategoryTable* &cat_table, Key
 }
 
 // searching commands
-void timestamp_search(TimestampTable* &time_table, LogQueue &command_results, string &input) {
+void timestamp_search(TimestampTable* &time_table, LogQueue &command_results, string &input, ostringstream &ss, ostringstream &error_ss) {
 
 	string start, end;
 
@@ -188,33 +192,32 @@ void timestamp_search(TimestampTable* &time_table, LogQueue &command_results, st
 	}
 
 	if ((int(start.length()) != 14) || (int(end.length()) != 14)) {
-		print_input_error();
+		print_input_error(ss, error_ss);
 	}
-
 
 	command_results = time_table->get_time_logs(start, end);
 
-	cout << command_results.size() << "\n";
+	ss << command_results.size() << "\n";
 
 	return;
 }
 
-void category_search(CategoryTable* &cat_table, LogQueue &command_results, string &input) {
+void category_search(CategoryTable* &cat_table, LogQueue &command_results, string &input, ostringstream &ss) {
 
 	string category = input.substr(2);
 	command_results = cat_table->get_cat_logs(category);
 
-	cout << command_results.size() << "\n";
+	ss << command_results.size() << "\n";
 
 	return;
 }
 
-void keyword_search(KeywordTable* &key_table, LogQueue &command_results, string &input) {
+void keyword_search(KeywordTable* &key_table, LogQueue &command_results, string &input, ostringstream &ss) {
 
 	string keywords = input.substr(2);
 	command_results = key_table->get_word_logs(keywords);
 
-	cout << command_results.size() << "\n";
+	ss << command_results.size() << "\n";
 
 	return;
 }
@@ -238,7 +241,7 @@ void insert_search_results(vector <Log*> &excerpt_list, LogQueue command_results
 	return;
 }
 
-void delete_log_entry(vector <Log*> &excerpt_list, string &input) {
+void delete_log_entry(vector <Log*> &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss) {
 
 	int excerpt_id = stoi(input.substr(2));
 
@@ -246,13 +249,13 @@ void delete_log_entry(vector <Log*> &excerpt_list, string &input) {
 		excerpt_list.erase(excerpt_list.begin() + excerpt_id);
 	}
 	else {
-		print_input_error();
+		print_input_error(ss, error_ss);
 	}
 
 	return;
 }
 
-void move_to_beginning(vector <Log*> &excerpt_list, string &input) {
+void move_to_beginning(vector <Log*> &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss) {
 
 	int excerpt_id = stoi(input.substr(2));
 
@@ -262,13 +265,13 @@ void move_to_beginning(vector <Log*> &excerpt_list, string &input) {
 		excerpt_list.insert(excerpt_list.begin(), move);
 	}
 	else {
-		print_input_error();
+		print_input_error(ss, error_ss);
 	}
 
 	return;
 }
 
-void move_to_end(vector <Log*> &excerpt_list, string &input) {
+void move_to_end(vector <Log*> &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss) {
 
 	int excerpt_id = stoi(input.substr(2));
 
@@ -278,7 +281,7 @@ void move_to_end(vector <Log*> &excerpt_list, string &input) {
 		excerpt_list.push_back(move);
 	}
 	else {
-		print_input_error();
+		print_input_error(ss, error_ss);
 	}
 
 	return;
@@ -299,9 +302,8 @@ void clear_excerpt_list(vector <Log*> &excerpt_list) {
 }
 
 // output commands
-void print_recent_searches(LogQueue command_results) {
+void print_recent_searches(LogQueue command_results, ostringstream &ss) {
 
-	ostringstream ss;
 	while (!command_results.empty()) {
 		Log* entry = command_results.top();
 		ss << entry->get_entry_id() << "|" << *entry->get_time_stamp() << "|" << *entry->get_category() << "|" << *entry->get_message() << "\n";
@@ -309,21 +311,16 @@ void print_recent_searches(LogQueue command_results) {
 		command_results.pop();
 	}
 
-	cout << ss.str();
-
 	return;
 }
 
-void print_excerpt_list(vector <Log*> &excerpt_list) {
-	
-	ostringstream ss;
+void print_excerpt_list(vector <Log*> &excerpt_list, ostringstream &ss) {
+
 	Log* entry;
 	for (int i = 0; i < int(excerpt_list.size()); ++i) {
 		entry = excerpt_list.at(i);
 		ss << i << "|" << entry->get_entry_id() << "|" << *entry->get_time_stamp() << "|" << *entry->get_category() << "|" << *entry->get_message() << "\n";
 	}
-
-	cout << ss.str();
 
 	return;
 }
@@ -344,18 +341,18 @@ Log* create_log(string &str) {
 	return new Log(time, cat, mess);
 }
 
-void print_input_signal() {
+void print_input_signal(ostringstream &ss) {
 
-	cout << "%";
+	ss << "%";
 
 	return;
 }
 
-void print_input_error() {
+void print_input_error(ostringstream &ss, ostringstream &error_ss) {
 
-	cerr << "Error: Invalid command";
+	error_ss << "Error: Invalid command";
 
-	print_input_signal();
+	print_input_signal(ss);
 
 	return;
 }

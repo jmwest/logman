@@ -61,8 +61,8 @@ void KeywordTable:: insert_word_log(Log* log) {
 
 LogQueue KeywordTable::get_word_logs(string &words) {
 
-	cerr << "\n_________________________________________________" << endl;
-	cerr << "Keyword search";
+//	cerr << "\n_________________________________________________" << endl;
+//	cerr << "Keyword search";
 	LogQueue logs = LogQueue();
 
 	vector <string> individual_words;
@@ -95,34 +95,32 @@ LogQueue KeywordTable::get_word_logs(string &words) {
 			break;
 		}
 
-		cerr << endl << individual_words.at(i) << ":\n";
+//		cerr << endl << individual_words.at(i) << ":\n";
 
 		if (search_intersection.empty()) {
 			for (WordTable::iterator it = keys.first; it != keys.second; ++it) {
 				search_intersection.push_back(it->second);
-				cerr << "\t" << *it->second->get_lower_case_string() << ";\n";
+//				cerr << "\t" << *it->second->get_lower_case_string() << ";\n";
 			}
 		}
 		else {
 			for (WordTable::iterator it = keys.first; it != keys.second; ++it) {
 				current.push_back(it->second);
-				cerr << "\t" << *it->second->get_lower_case_string() << ";\n";
+//				cerr << "\t" << *it->second->get_lower_case_string() << ";\n";
 			}
-
-//			vector <Log*> temp;
 
 			vector <Log*>::iterator del = set_intersection(search_intersection.begin(), search_intersection.end(), current.begin(), current.end(), search_intersection.begin());
 
-			search_intersection.erase(del, search_intersection.end());
-//			search_intersection = temp;
+			if (del != --search_intersection.end()) {
+				search_intersection.erase(del, search_intersection.end());
+			}
 		}
-		
 	}
 
-	cerr << endl << "results:\n";
+//	cerr << endl << "results:\n";
 	for (int i = 0; i < int(search_intersection.size()); ++i) {
 		logs.push(search_intersection.at(i));
-		cerr << "\t" << *search_intersection.at(i)->get_lower_case_string() << endl;
+//		cerr << "\t" << *search_intersection.at(i)->get_lower_case_string() << endl;
 	}
 
 	return logs;

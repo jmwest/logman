@@ -30,33 +30,33 @@ void parse_command_line_input(int & argc, char *argv[], ifstream &file_stream);
 // REQUIRES:
 // MODIFIES:
 // EFFECTS:
-void input_master_log_file(ifstream &file_stream, TimestampTable* &time_table, CategoryTable* &cat_table, KeywordTable* &key_table, EntryIDTable* &entry_table);
+void input_master_log_file(ifstream &file_stream, TimestampTable* &time_table, CategoryTable* &cat_table, KeywordTable* &key_table, EntryIDTable* &entry_table, ostringstream &ss);
 
-void take_user_input(TimestampTable* &time_table, CategoryTable* &cat_table, KeywordTable* &key_table, EntryIDTable* &entry_table);
+void take_user_input(TimestampTable* &time_table, CategoryTable* &cat_table, KeywordTable* &key_table, EntryIDTable* &entry_table, ostringstream &ss, ostringstream &error_ss);
 
-void timestamp_search(TimestampTable* &time_table, LogQueue &command_results, string &input);
+void timestamp_search(TimestampTable* &time_table, LogQueue &command_results, string &input, ostringstream &ss, ostringstream &error_ss);
 
-void category_search(CategoryTable* &cat_table, LogQueue &command_results, string &input);
+void category_search(CategoryTable* &cat_table, LogQueue &command_results, string &input, ostringstream &ss);
 
-void keyword_search(KeywordTable* &key_table, LogQueue &command_results, string &input);
+void keyword_search(KeywordTable* &key_table, LogQueue &command_results, string &input, ostringstream &ss);
 
 void insert_log_entry(EntryIDTable* &entry_table, vector <Log*> &excerpt_list, string &input);
 
 void insert_search_results(vector <Log*> &excerpt_list, LogQueue command_results);
 
-void delete_log_entry(vector <Log*> &excerpt_list, string &input);
+void delete_log_entry(vector <Log*> &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss);
 
-void move_to_beginning(vector <Log*> &excerpt_list, string &input);
+void move_to_beginning(vector <Log*> &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss);
 
-void move_to_end(vector <Log*> &excerpt_list, string &input);
+void move_to_end(vector <Log*> &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss);
 
 void sort_excerpt_list(vector <Log*> &excerpt_list);
 
 void clear_excerpt_list(vector <Log*> &excerpt_list);
 
-void print_recent_searches(LogQueue command_results);
+void print_recent_searches(LogQueue command_results, ostringstream &ss);
 
-void print_excerpt_list(vector <Log*> &excerpt_list);
+void print_excerpt_list(vector <Log*> &excerpt_list, ostringstream &ss);
 
 Log* create_log(string &str);
 

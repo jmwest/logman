@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		27BDF0BD1ABE6905009E0C8F /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF0BC1ABE6905009E0C8F /* Makefile */; };
 		27DFAAB91AC4846F00D29CDB /* TestClasses.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27DFAAB81AC4846F00D29CDB /* TestClasses.cpp */; };
+		27E5D4CA1AC5ED1B00848041 /* CreateLogFiles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27E5D4C81AC5ED1B00848041 /* CreateLogFiles.cpp */; };
 		27E638EA1AB89724004437F3 /* logman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27E638E81AB89724004437F3 /* logman.cpp */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,11 @@
 		27CE8C301AC34E79005C9106 /* test-1-correct.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-1-correct.txt"; sourceTree = SOURCE_ROOT; };
 		27CE8C311AC379D0005C9106 /* test-1-out.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-1-out.txt"; sourceTree = SOURCE_ROOT; };
 		27DFAAB81AC4846F00D29CDB /* TestClasses.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestClasses.cpp; path = Proj3Files/TestClasses.cpp; sourceTree = SOURCE_ROOT; };
+		27E5D4C71AC5D37300848041 /* test-spec-out.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-spec-out.txt"; sourceTree = SOURCE_ROOT; };
+		27E5D4C81AC5ED1B00848041 /* CreateLogFiles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CreateLogFiles.cpp; path = Proj3Files/CreateLogFiles.cpp; sourceTree = SOURCE_ROOT; };
+		27E5D4C91AC5ED1B00848041 /* CreateLogFiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateLogFiles.h; path = Proj3Files/CreateLogFiles.h; sourceTree = SOURCE_ROOT; };
+		27E5D4CB1AC64C0C00848041 /* large-test-cmnds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "large-test-cmnds.txt"; path = "Proj3Files/large-test-cmnds.txt"; sourceTree = SOURCE_ROOT; };
+		27E5D4CC1AC64C0C00848041 /* large-test-logs.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "large-test-logs.txt"; path = "Proj3Files/large-test-logs.txt"; sourceTree = SOURCE_ROOT; };
 		27E638DE1AB89557004437F3 /* EECS 281 Project 3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "EECS 281 Project 3"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27E638E81AB89724004437F3 /* logman.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logman.cpp; sourceTree = SOURCE_ROOT; };
 		27E638E91AB89724004437F3 /* logman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logman.h; sourceTree = SOURCE_ROOT; };
@@ -63,6 +69,7 @@
 		2701B9491ABDDF6D009CBD13 /* Proj3Files */ = {
 			isa = PBXGroup;
 			children = (
+				27E5D4C71AC5D37300848041 /* test-spec-out.txt */,
 				27CE8C2B1AC32ED3005C9106 /* test-out.txt */,
 				2701B94A1ABDDF83009CBD13 /* EECS281W15Project3.pdf */,
 				2701B94B1ABDDF83009CBD13 /* excerpt-list-commands */,
@@ -75,6 +82,8 @@
 		27BDF0B81ABE5D75009E0C8F /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				27E5D4CB1AC64C0C00848041 /* large-test-cmnds.txt */,
+				27E5D4CC1AC64C0C00848041 /* large-test-logs.txt */,
 				27CE8C2C1AC348E8005C9106 /* test-1-log.txt */,
 				27CE8C2D1AC34907005C9106 /* test-1-cmds.txt */,
 				27CE8C301AC34E79005C9106 /* test-1-correct.txt */,
@@ -83,6 +92,8 @@
 				27CE8C2E1AC3493B005C9106 /* test-2-cmds.txt */,
 				27B5419A1AC267CA008E1B75 /* TestClasses.h */,
 				27DFAAB81AC4846F00D29CDB /* TestClasses.cpp */,
+				27E5D4C91AC5ED1B00848041 /* CreateLogFiles.h */,
+				27E5D4C81AC5ED1B00848041 /* CreateLogFiles.cpp */,
 			);
 			name = Test;
 			sourceTree = "<group>";
@@ -176,6 +187,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27E5D4CA1AC5ED1B00848041 /* CreateLogFiles.cpp in Sources */,
 				27BDF0BD1ABE6905009E0C8F /* Makefile in Sources */,
 				27DFAAB91AC4846F00D29CDB /* TestClasses.cpp in Sources */,
 				27E638EA1AB89724004437F3 /* logman.cpp in Sources */,

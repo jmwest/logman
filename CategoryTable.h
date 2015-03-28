@@ -42,8 +42,8 @@ void CategoryTable:: insert_cat_log(Log* log) {
 
 LogQueue CategoryTable::get_cat_logs(string &cat) {
 
-	cerr << "\n_________________________________________________" << endl;
-	cerr << "Category search\n";
+//	cerr << "\n_________________________________________________" << endl;
+//	cerr << "Category search\n";
 	LogQueue logs = LogQueue();
 
 	for (int i = 0; i < int(cat.length()); ++i) {
@@ -53,7 +53,7 @@ LogQueue CategoryTable::get_cat_logs(string &cat) {
 	pair <CatTable::iterator, CatTable::iterator> cats = c_table.equal_range(cat);
 
 	for (CatTable::iterator it = cats.first; it != cats.second; ++it) {
-		cerr << "\t" << *it->second->get_lower_case_string() << endl;
+//		cerr << "\t" << *it->second->get_lower_case_string() << endl;
 
 		logs.push(it->second);
 	}
