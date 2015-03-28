@@ -16,6 +16,8 @@ void print_input_signal(ostringstream &ss);
 
 void print_input_error(ostringstream &ss, ostringstream &error_ss);
 
+void sort_command_list(LogVec* &command_list);
+
 using namespace std;
 
 int main(int argc, char *argv[]) {
@@ -28,16 +30,11 @@ int main(int argc, char *argv[]) {
 	KeywordTable key_table;
 	EntryIDTable entry_table;
 
-	TimestampTable* time_table_ptr = &time_table;
-	CategoryTable* cat_table_ptr = &cat_table;
-	KeywordTable* key_table_ptr = &key_table;
-	EntryIDTable* entry_table_ptr = &entry_table;
-
 	parse_command_line_input(argc, argv, file_stream);
 
-	input_master_log_file(file_stream, time_table_ptr, cat_table_ptr, key_table_ptr, entry_table_ptr, ss);
+	input_master_log_file(file_stream, time_table, cat_table, key_table, entry_table, ss);
 
-	take_user_input(time_table_ptr, cat_table_ptr, key_table_ptr, entry_table_ptr, ss, error_ss);
+	take_user_input(time_table, cat_table, key_table, entry_table, ss, error_ss);
 
 	cout << ss.str();
 	cerr << error_ss.str();
@@ -71,7 +68,7 @@ void parse_command_line_input(int & argc, char *argv[], ifstream &file_stream) {
 	return;
 } // parse_command_line_input
 
-void input_master_log_file(ifstream &file_stream, TimestampTable* &time_table, CategoryTable* &cat_table, KeywordTable* &key_table, EntryIDTable* &entry_table, ostringstream &ss) {
+void input_master_log_file(ifstream &file_stream, TimestampTable &time_table, CategoryTable &cat_table, KeywordTable &key_table, EntryIDTable &entry_table, ostringstream &ss) {
 
 	string str_in;
 	int num_logs = 0;
@@ -82,10 +79,13 @@ void input_master_log_file(ifstream &file_stream, TimestampTable* &time_table, C
 			Log* wood = create_log(str_in);
 			++num_logs;
 
-			time_table->insert_time_log(wood);
-			cat_table->insert_cat_log(wood);
-			key_table->insert_word_log(wood);
-			entry_table->insert_entry_log(wood);
+			time_table.insert_time_log(wood);
+
+			cat_table.insert_cat_log(wood);
+
+			key_table.insert_word_log(wood);
+
+			entry_table.insert_entry_log(wood);
 		}
 	}
 
@@ -94,14 +94,15 @@ void input_master_log_file(ifstream &file_stream, TimestampTable* &time_table, C
 	return;
 }
 
-void take_user_input(TimestampTable* &time_table, CategoryTable* &cat_table, KeywordTable* &key_table, EntryIDTable* &entry_table, ostringstream &ss, ostringstream &error_ss) {
+void take_user_input(TimestampTable &time_table, CategoryTable &cat_table, KeywordTable &key_table, EntryIDTable &entry_table, ostringstream &ss, ostringstream &error_ss) {
 
-	vector <Log*> excerpt_list;
-	LogQueue command_results;
+	LogVec excerpt_list;
+	LogVec* command_results = nullptr;
+	bool command_sorted = false;
 
 	string user_input;
-	bool take_input = true;
 
+	bool take_input = true;
 	while (take_input) {
 
 		print_input_signal(ss);
@@ -110,72 +111,94 @@ void take_user_input(TimestampTable* &time_table, CategoryTable* &cat_table, Key
 
 		switch (user_input.at(0)) {
 			// searching commands
-			case 't':
+			case 't': {
 				timestamp_search(time_table, command_results, user_input, ss, error_ss);
+				command_sorted = false;
 				break;
-
-			case 'c':
+			}
+			case 'c': {
 				category_search(cat_table, command_results, user_input, ss);
+				command_sorted = false;
 				break;
-
-			case 'k':
+			}
+			case 'k': {
 				keyword_search(key_table, command_results, user_input, ss);
+				command_sorted = false;
 				break;
-
+			}
 			// excerpt list editing commands
-			case 'i':
+			case 'i': {
 				insert_log_entry(entry_table, excerpt_list, user_input);
 				break;
+			}
+			case 'r': {
+				if (!command_sorted) {
+					sort_command_list(command_results);
+					command_sorted = true;
+				}
 
-			case 'r':
 				insert_search_results(excerpt_list, command_results);
 				break;
-
-			case 'd':
+			}
+			case 'd': {
 				delete_log_entry(excerpt_list, user_input, ss, error_ss);
 				break;
-
-			case 'b':
+			}
+			case 'b': {
 				move_to_beginning(excerpt_list, user_input, ss, error_ss);
 				break;
-
-			case 'e':
+			}
+			case 'e': {
 				move_to_end(excerpt_list, user_input, ss, error_ss);
 				break;
-
-			case 's':
+			}
+			case 's': {
 				sort_excerpt_list(excerpt_list);
 				break;
-
-			case 'l':
+			}
+			case 'l': {
 				clear_excerpt_list(excerpt_list);
 				break;
-
+			}
 			// output commands
-			case 'g':
+			case 'g': {
+				if (!command_sorted) {
+					sort_command_list(command_results);
+					command_sorted = true;
+				}
+
 				print_recent_searches(command_results, ss);
 				break;
-
-			case 'p':
+			}
+			case 'p': {
 				print_excerpt_list(excerpt_list, ss);
 				break;
-
+			}
 			// miscellaneous
-			case 'q':
+			case 'q': {
 				take_input = false;
 				break;
-
-			default:
+			}
+			default: {
 				print_input_error(ss, error_ss);
 				break;
+			}
 		}
+	}
+
+	if (command_results) {
+		delete command_results; command_results = nullptr;
 	}
 
 	return;
 }
 
 // searching commands
-void timestamp_search(TimestampTable* &time_table, LogQueue &command_results, string &input, ostringstream &ss, ostringstream &error_ss) {
+void timestamp_search(TimestampTable &time_table, LogVec* &command_results, string &input, ostringstream &ss, ostringstream &error_ss) {
+
+	if (command_results) {
+		delete command_results; command_results = nullptr;
+	}
 
 	string start, end;
 
@@ -195,53 +218,78 @@ void timestamp_search(TimestampTable* &time_table, LogQueue &command_results, st
 		print_input_error(ss, error_ss);
 	}
 
-	command_results = time_table->get_time_logs(start, end);
+	command_results = time_table.get_time_logs(start, end);
 
-	ss << command_results.size() << "\n";
+	int num_found = 0;
+
+	if (command_results) {
+		num_found = int(command_results->size());
+	}
+
+	ss << num_found << "\n";
 
 	return;
 }
 
-void category_search(CategoryTable* &cat_table, LogQueue &command_results, string &input, ostringstream &ss) {
+void category_search(CategoryTable &cat_table, LogVec* &command_results, string &input, ostringstream &ss) {
+
+	if (command_results) {
+		delete command_results; command_results = nullptr;
+	}
 
 	string category = input.substr(2);
-	command_results = cat_table->get_cat_logs(category);
+	command_results = cat_table.get_cat_logs(category);
 
-	ss << command_results.size() << "\n";
+	int num_found = 0;
+	
+	if (command_results) {
+		num_found = int(command_results->size());
+	}
+	
+	ss << num_found << "\n";
 
 	return;
 }
 
-void keyword_search(KeywordTable* &key_table, LogQueue &command_results, string &input, ostringstream &ss) {
+void keyword_search(KeywordTable &key_table, LogVec* &command_results, string &input, ostringstream &ss) {
+
+	if (command_results) {
+		delete command_results; command_results = nullptr;
+	}
 
 	string keywords = input.substr(2);
-	command_results = key_table->get_word_logs(keywords);
+	command_results = key_table.get_word_logs(keywords);
 
-	ss << command_results.size() << "\n";
+	int num_found = 0;
+	
+	if (command_results) {
+		num_found = int(command_results->size());
+	}
+	
+	ss << num_found << "\n";
 
 	return;
 }
 
 // excerpt list editing commands
-void insert_log_entry(EntryIDTable* &entry_table, vector <Log*> &excerpt_list, string &input) {
+void insert_log_entry(EntryIDTable &entry_table, LogVec &excerpt_list, string &input) {
 
 	int entry_id = stoi(input.substr(2));
-	excerpt_list.push_back(entry_table->get_entry_log(entry_id));
+	excerpt_list.push_back(entry_table.get_entry_log(entry_id));
 
 	return;
 }
 
-void insert_search_results(vector <Log*> &excerpt_list, LogQueue command_results) {
+void insert_search_results(LogVec &excerpt_list, LogVec* &command_results) {
 
-	while (!command_results.empty()) {
-		excerpt_list.push_back(command_results.top());
-		command_results.pop();
+	if (command_results) {
+		excerpt_list.insert(excerpt_list.end(), command_results->begin(), command_results->end());
 	}
 
 	return;
 }
 
-void delete_log_entry(vector <Log*> &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss) {
+void delete_log_entry(LogVec &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss) {
 
 	int excerpt_id = stoi(input.substr(2));
 
@@ -255,7 +303,7 @@ void delete_log_entry(vector <Log*> &excerpt_list, string &input, ostringstream 
 	return;
 }
 
-void move_to_beginning(vector <Log*> &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss) {
+void move_to_beginning(LogVec &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss) {
 
 	int excerpt_id = stoi(input.substr(2));
 
@@ -271,7 +319,7 @@ void move_to_beginning(vector <Log*> &excerpt_list, string &input, ostringstream
 	return;
 }
 
-void move_to_end(vector <Log*> &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss) {
+void move_to_end(LogVec &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss) {
 
 	int excerpt_id = stoi(input.substr(2));
 
@@ -287,14 +335,23 @@ void move_to_end(vector <Log*> &excerpt_list, string &input, ostringstream &ss, 
 	return;
 }
 
-void sort_excerpt_list(vector <Log*> &excerpt_list) {
+void sort_excerpt_list(LogVec &excerpt_list) {
 
 	sort(excerpt_list.begin(), excerpt_list.end(), MinLogComparator());
 
 	return;
 }
 
-void clear_excerpt_list(vector <Log*> &excerpt_list) {
+void sort_command_list(LogVec* &command_list) {
+
+	if (command_list) {
+		sort(command_list->begin(), command_list->end(), MinLogComparator());
+	}
+	
+	return;
+}
+
+void clear_excerpt_list(LogVec &excerpt_list) {
 
 	excerpt_list = vector <Log*> ();
 
@@ -302,19 +359,21 @@ void clear_excerpt_list(vector <Log*> &excerpt_list) {
 }
 
 // output commands
-void print_recent_searches(LogQueue command_results, ostringstream &ss) {
+void print_recent_searches(LogVec* &command_results, ostringstream &ss) {
 
-	while (!command_results.empty()) {
-		Log* entry = command_results.top();
-		ss << entry->get_entry_id() << "|" << *entry->get_time_stamp() << "|" << *entry->get_category() << "|" << *entry->get_message() << "\n";
-
-		command_results.pop();
+	if (command_results) {
+		for (int i = 0; i < int(command_results->size()); ++i) {
+			Log entry = *command_results->at(i);
+			
+			ss << entry.get_entry_id() << "|" << *entry.get_time_stamp() << "|" << *entry.get_category() << "|" << *entry.get_message() << "\n";
+			
+		}
 	}
 
 	return;
 }
 
-void print_excerpt_list(vector <Log*> &excerpt_list, ostringstream &ss) {
+void print_excerpt_list(LogVec &excerpt_list, ostringstream &ss) {
 
 	Log* entry;
 	for (int i = 0; i < int(excerpt_list.size()); ++i) {

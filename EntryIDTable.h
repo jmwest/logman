@@ -15,7 +15,7 @@
 
 class EntryIDTable {
 private:
-	vector <Log*> e_table;
+	LogVec e_table;
 
 public:
 	EntryIDTable();

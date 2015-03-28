@@ -11,7 +11,7 @@
 
 #include "Log.h"
 
-typedef unordered_multimap <string, Log*> WordTable;
+typedef unordered_map <string, LogVec> WordTable;
 
 class KeywordTable {
 private:
@@ -24,17 +24,15 @@ public:
 
 	void  insert_word_log(Log* log);
 
-	LogQueue get_word_logs(string &words);
+	LogVec* get_word_logs(string &words);
 };
 
 KeywordTable::KeywordTable() {}
 
 void KeywordTable:: insert_word_log(Log* log) {
 
-	//USE A MAP!
 	unordered_map <string, string> word_map;
 
-	// append the category and message together for keyword
 	string* message = log->get_lower_case_string();
 
 	int word_start = 0;
@@ -53,21 +51,17 @@ void KeywordTable:: insert_word_log(Log* log) {
 
 	for (unordered_map <string, string>:: iterator it = word_map.begin();
 		 it != word_map.end(); ++it) {
-		k_table.insert(WordTable::value_type(it->second, log));
+		k_table[it->second].push_back(log);
 	}
 
 	return;
 }
 
-LogQueue KeywordTable::get_word_logs(string &words) {
+LogVec* KeywordTable::get_word_logs(string &words) {
 
-//	cerr << "\n_________________________________________________" << endl;
-//	cerr << "Keyword search";
-	LogQueue logs = LogQueue();
+	LogVec* logs = new LogVec();
 
 	vector <string> individual_words;
-
-	vector <Log*> search_intersection, current;
 
 	for (int i = 0; i < int(words.size()); ++i) {
 		words.at(i) = std::tolower(words.at(i));
@@ -88,39 +82,28 @@ LogQueue KeywordTable::get_word_logs(string &words) {
 
 	for (int i = 0; i < int(individual_words.size()); ++i) {
 
-		pair <WordTable::iterator, WordTable::iterator> keys = k_table.equal_range(individual_words.at(i));
+		LogVec* current = &k_table[individual_words.at(i)];
 
-		if (keys.first == keys.second) {
-			search_intersection = vector <Log*>();
+		if (current->empty()) {
+			delete logs; logs = nullptr;
+
 			break;
 		}
-
-//		cerr << endl << individual_words.at(i) << ":\n";
-
-		if (search_intersection.empty()) {
-			for (WordTable::iterator it = keys.first; it != keys.second; ++it) {
-				search_intersection.push_back(it->second);
-//				cerr << "\t" << *it->second->get_lower_case_string() << ";\n";
-			}
+		else if (logs->empty())	{
+			logs->insert(logs->begin(), current->begin(), current->end());
 		}
 		else {
-			for (WordTable::iterator it = keys.first; it != keys.second; ++it) {
-				current.push_back(it->second);
-//				cerr << "\t" << *it->second->get_lower_case_string() << ";\n";
+			LogVec::iterator del = set_intersection(logs->begin(), logs->end(), current->begin(), current->end(), logs->begin());
+
+			if ((del != --logs->end()) && ((del != logs->end()) || (del == logs->begin()))) {
+				logs->erase(del, logs->end());
 			}
 
-			vector <Log*>::iterator del = set_intersection(search_intersection.begin(), search_intersection.end(), current.begin(), current.end(), search_intersection.begin());
-
-			if (del != --search_intersection.end()) {
-				search_intersection.erase(del, search_intersection.end());
+			if (del == logs->begin()) {
+				delete logs; logs = nullptr;
+				break;
 			}
 		}
-	}
-
-//	cerr << endl << "results:\n";
-	for (int i = 0; i < int(search_intersection.size()); ++i) {
-		logs.push(search_intersection.at(i));
-//		cerr << "\t" << *search_intersection.at(i)->get_lower_case_string() << endl;
 	}
 
 	return logs;

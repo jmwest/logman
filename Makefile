@@ -201,8 +201,10 @@ buildTestCases : Log.h TimestampTable.h CategoryTable.h KeywordTable.h EntryIDTa
 testCases : buildTestCases
 	./logman log-data < excerpt-list-commands > test-spec-out.txt
 	./logman test-1-log.txt < test-1-cmds.txt > test-1-out.txt
+	./logman test-2-log.txt < test-2-cmds.txt > test-2-out.txt
 	diff output test-spec-out.txt
 	diff test-1-out.txt test-1-correct.txt
+	diff test-2-out.txt test-2-correct.txt
 
 #######################
 # TODO (begin) #

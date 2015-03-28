@@ -1,0 +1,26 @@
+20 entries loaded
+%20
+%4|00:10:20:99:11|Crumpet-Mgr|CrumpetID=blueberry/raspberry/lemonberry
+0|00:10:20:99:12|TCP|TASTY CRUMPET--PASTRIES!!@I&ATE_4!!
+3|00:10:20:99:12|tCP|Bad crumpet received (CrumpetID #12353)
+15|00:10:20:99:12|tCP|Bad crumpet received (CrumpetID #12354)
+2|00:10:20:99:12|tcp-main|AtE a ]]SaNdWiCh~-~-~-~-
+1|00:10:20:99:13|Tcp|Doesanyonelookatethesetestcasesatallcanyouhearme?
+5|00:10:20:99:14|UI-CRUMPET2|crumPET received focus.
+6|00:10:20:99:15|Tea|Teabag #12 blocking on join call to teabag #4
+7|00:10:20:99:16|crumpet-mgr|Crumpet1 results received ("SELECT tcp FROM eaters")
+8|00:10:20:99:17|UI-CRUMPET-1|CRUMpe-t event served.
+9|00:10:20:99:18|TEA-english-breakfast|TEAbag #4 steeped with crumpet #3
+10|00:10:20:99:19|PGM|Beginning master food eating.
+11|00:10:20:99:20|PgM|Finished master food eating (master-name=Ronald Waddikins).
+17|01:23:10:03:00|ALRM|YOUR-CRUmPETS?WERE`ROBBED!(crumpetid #4)
+19|01:23:10:03:00|ALRM|Jeeves sent to jail by due process (LID #5432)
+12|04:25:21:55:36|Tea-oolong|Tea choice.change to OOlong
+13|04:25:21:55:36|Tee|Interrupt teatime for Ronald at 3
+14|04:25:21:55:37|TEa|12 guests joined Ronald at table
+18|04:25:21:55:50|Help|Jeeves attempted to grab crumpet #3 held by guest #4
+16|08:23:12:03:15|TCP|Connection to host lost. (CrumpeTid #12)
+%%%%%2
+%%%%0
+%%%%0
+%%%%%

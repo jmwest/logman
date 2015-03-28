@@ -1,0 +1,20 @@
+t 00:00:00:00:00|99:99:99:99:11
+g
+r
+e 19
+i 7
+i 19
+c crumpet-mgr
+b 0
+d 1
+r
+k crumpet tasty ate tea
+g
+l
+p
+t 00:00:00:00:00|00:00:00:00:01
+r
+p
+l
+p
+q

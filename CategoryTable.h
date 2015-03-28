@@ -11,7 +11,7 @@
 
 #include "Log.h"
 
-typedef unordered_multimap <string, Log*> CatTable;
+typedef unordered_map <string, LogVec> CatTable;
 
 class CategoryTable {
 private:
@@ -20,9 +20,9 @@ private:
 public:
 	CategoryTable();
 
-	void  insert_cat_log(Log* log);
+	void insert_cat_log(Log* log);
 
-	LogQueue get_cat_logs(string &cat);
+	LogVec* get_cat_logs(string &cat);
 };
 
 CategoryTable::CategoryTable() {}
@@ -35,28 +35,22 @@ void CategoryTable:: insert_cat_log(Log* log) {
 		s.at(i) = tolower(s.at(i));
 	}
 
-	c_table.insert(CatTable::value_type(s, log));
+	c_table[s].push_back(log);
 
 	return;
 }
 
-LogQueue CategoryTable::get_cat_logs(string &cat) {
+LogVec* CategoryTable::get_cat_logs(string &cat) {
 
-//	cerr << "\n_________________________________________________" << endl;
-//	cerr << "Category search\n";
-	LogQueue logs = LogQueue();
+	LogVec* logs = new LogVec();
 
 	for (int i = 0; i < int(cat.length()); ++i) {
 		cat.at(i) = tolower(cat.at(i));
 	}
 
-	pair <CatTable::iterator, CatTable::iterator> cats = c_table.equal_range(cat);
+	LogVec* kitties = &c_table[cat];
 
-	for (CatTable::iterator it = cats.first; it != cats.second; ++it) {
-//		cerr << "\t" << *it->second->get_lower_case_string() << endl;
-
-		logs.push(it->second);
-	}
+	logs->insert(logs->end(), kitties->begin(), kitties->end());
 
 	return logs;
 }

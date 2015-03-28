@@ -78,90 +78,111 @@ Log::Log(string &timestamp_in, string &category_in, string &message_in)
 
 // Other comparator and type definitions
 
-class MaxLogComparator {
-public:
-	bool operator() (Log* const &one, Log* const &two) {
-		if (one->get_month() > two->get_month()) {
-			return true;
-		}
-		else if (one->get_month() == two->get_month()) {
-			if (one->get_day() > two->get_day()) {
-				return true;
-			}
-			else if (one->get_day() == two->get_day()) {
-				if (one->get_hour() > two->get_hour()) {
-					return true;
-				}
-				else if (one->get_hour() == two->get_hour()) {
-					if (one->get_minute() > two->get_minute()) {
-						return true;
-					}
-					else if (one->get_minute() == two->get_minute()) {
-						if (one->get_second() > two->get_second()) {
-							return true;
-						}
-
-						else if (one->get_second() == two->get_second()) {
-							if (*one->get_category() > *two->get_category()) {
-								return true;
-							}
-							else if (*one->get_category() == *two->get_category()) {
-								if (one->get_entry_id() > two->get_entry_id()) {
-									return true;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		return false;
-	}
-};
-
 class MinLogComparator {
 public:
-	bool operator() (Log* const &one, Log* const &two) {
-		if (one->get_month() < two->get_month()) {
+	bool operator() (Log* &one, Log* &two) {
+		if (*one->get_time_stamp() < *two->get_time_stamp()) {
 			return true;
 		}
-		else if (one->get_month() == two->get_month()) {
-			if (one->get_day() < two->get_day()) {
+		else if (*one->get_time_stamp() == *two->get_time_stamp()) {
+			if (*one->get_category() < *two->get_category()) {
 				return true;
 			}
-			else if (one->get_day() == two->get_day()) {
-				if (one->get_hour() < two->get_hour()) {
+			else if (*one->get_category() == *two->get_category()) {
+				if (one->get_entry_id() < two->get_entry_id()) {
 					return true;
-				}
-				else if (one->get_hour() == two->get_hour()) {
-					if (one->get_minute() < two->get_minute()) {
-						return true;
-					}
-					else if (one->get_minute() == two->get_minute()) {
-						if (one->get_second() < two->get_second()) {
-							return true;
-						}
-						
-						else if (one->get_second() == two->get_second()) {
-							if (*one->get_category() < *two->get_category()) {
-								return true;
-							}
-							else if (*one->get_category() == *two->get_category()) {
-								if (one->get_entry_id() < two->get_entry_id()) {
-									return true;
-								}
-							}
-						}
-					}
 				}
 			}
 		}
-		
+
 		return false;
 	}
 };
 
+//class MaxLogComparator {
+//public:
+//	bool operator() (Log* const &one, Log* const &two) {
+//		if (one->get_month() > two->get_month()) {
+//			return true;
+//		}
+//		else if (one->get_month() == two->get_month()) {
+//			if (one->get_day() > two->get_day()) {
+//				return true;
+//			}
+//			else if (one->get_day() == two->get_day()) {
+//				if (one->get_hour() > two->get_hour()) {
+//					return true;
+//				}
+//				else if (one->get_hour() == two->get_hour()) {
+//					if (one->get_minute() > two->get_minute()) {
+//						return true;
+//					}
+//					else if (one->get_minute() == two->get_minute()) {
+//						if (one->get_second() > two->get_second()) {
+//							return true;
+//						}
+//
+//						else if (one->get_second() == two->get_second()) {
+//							if (*one->get_category() > *two->get_category()) {
+//								return true;
+//							}
+//							else if (*one->get_category() == *two->get_category()) {
+//								if (one->get_entry_id() > two->get_entry_id()) {
+//									return true;
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//		
+//		return false;
+//	}
+//};
+//
+//class MinLogComparator {
+//public:
+//	bool operator() (Log* const &one, Log* const &two) {
+//		if (one->get_month() < two->get_month()) {
+//			return true;
+//		}
+//		else if (one->get_month() == two->get_month()) {
+//			if (one->get_day() < two->get_day()) {
+//				return true;
+//			}
+//			else if (one->get_day() == two->get_day()) {
+//				if (one->get_hour() < two->get_hour()) {
+//					return true;
+//				}
+//				else if (one->get_hour() == two->get_hour()) {
+//					if (one->get_minute() < two->get_minute()) {
+//						return true;
+//					}
+//					else if (one->get_minute() == two->get_minute()) {
+//						if (one->get_second() < two->get_second()) {
+//							return true;
+//						}
+//						
+//						else if (one->get_second() == two->get_second()) {
+//							if (*one->get_category() < *two->get_category()) {
+//								return true;
+//							}
+//							else if (*one->get_category() == *two->get_category()) {
+//								if (one->get_entry_id() < two->get_entry_id()) {
+//									return true;
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//		
+//		return false;
+//	}
+//};
+//
 //class LogComparator {
 //private:
 //	bool max;
@@ -211,6 +232,6 @@ public:
 //	}
 //};
 
-typedef vector <Log> LogVec;
+typedef vector <Log*> LogVec;
 
 #endif
