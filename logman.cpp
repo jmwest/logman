@@ -14,7 +14,7 @@
 
 void print_input_signal(ostringstream &ss);
 
-void print_input_error(ostringstream &ss, ostringstream &error_ss);
+void print_input_error(ostringstream &error_ss);
 
 void sort_command_list(LogVec* &command_list);
 
@@ -141,15 +141,15 @@ void take_user_input(TimestampTable &time_table, CategoryTable &cat_table, Keywo
 				break;
 			}
 			case 'd': {
-				delete_log_entry(excerpt_list, user_input, ss, error_ss);
+				delete_log_entry(excerpt_list, user_input, error_ss);
 				break;
 			}
 			case 'b': {
-				move_to_beginning(excerpt_list, user_input, ss, error_ss);
+				move_to_beginning(excerpt_list, user_input, error_ss);
 				break;
 			}
 			case 'e': {
-				move_to_end(excerpt_list, user_input, ss, error_ss);
+				move_to_end(excerpt_list, user_input, error_ss);
 				break;
 			}
 			case 's': {
@@ -180,7 +180,7 @@ void take_user_input(TimestampTable &time_table, CategoryTable &cat_table, Keywo
 				break;
 			}
 			default: {
-				print_input_error(ss, error_ss);
+				print_input_error(error_ss);
 				break;
 			}
 		}
@@ -215,7 +215,7 @@ void timestamp_search(TimestampTable &time_table, LogVec* &command_results, stri
 	}
 
 	if ((int(start.length()) != 14) || (int(end.length()) != 14)) {
-		print_input_error(ss, error_ss);
+		print_input_error(error_ss);
 	}
 
 	command_results = time_table.get_time_logs(start, end);
@@ -289,7 +289,7 @@ void insert_search_results(LogVec &excerpt_list, LogVec* &command_results) {
 	return;
 }
 
-void delete_log_entry(LogVec &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss) {
+void delete_log_entry(LogVec &excerpt_list, string &input, ostringstream &error_ss) {
 
 	int excerpt_id = stoi(input.substr(2));
 
@@ -297,13 +297,13 @@ void delete_log_entry(LogVec &excerpt_list, string &input, ostringstream &ss, os
 		excerpt_list.erase(excerpt_list.begin() + excerpt_id);
 	}
 	else {
-		print_input_error(ss, error_ss);
+		print_input_error(error_ss);
 	}
 
 	return;
 }
 
-void move_to_beginning(LogVec &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss) {
+void move_to_beginning(LogVec &excerpt_list, string &input, ostringstream &error_ss) {
 
 	int excerpt_id = stoi(input.substr(2));
 
@@ -313,13 +313,13 @@ void move_to_beginning(LogVec &excerpt_list, string &input, ostringstream &ss, o
 		excerpt_list.insert(excerpt_list.begin(), move);
 	}
 	else {
-		print_input_error(ss, error_ss);
+		print_input_error(error_ss);
 	}
 
 	return;
 }
 
-void move_to_end(LogVec &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss) {
+void move_to_end(LogVec &excerpt_list, string &input, ostringstream &error_ss) {
 
 	int excerpt_id = stoi(input.substr(2));
 
@@ -329,7 +329,7 @@ void move_to_end(LogVec &excerpt_list, string &input, ostringstream &ss, ostring
 		excerpt_list.push_back(move);
 	}
 	else {
-		print_input_error(ss, error_ss);
+		print_input_error(error_ss);
 	}
 
 	return;
@@ -407,11 +407,9 @@ void print_input_signal(ostringstream &ss) {
 	return;
 }
 
-void print_input_error(ostringstream &ss, ostringstream &error_ss) {
+void print_input_error(ostringstream &error_ss) {
 
 	error_ss << "Error: Invalid command";
-
-	print_input_signal(ss);
 
 	return;
 }

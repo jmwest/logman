@@ -11,7 +11,6 @@
 
 #include "Log.h"
 #include <iostream>
-#include <exception>
 
 class EntryIDTable {
 private:

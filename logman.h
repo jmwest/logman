@@ -44,11 +44,11 @@ void insert_log_entry(EntryIDTable &entry_table, LogVec &excerpt_list, string &i
 
 void insert_search_results(LogVec &excerpt_list, LogVec* &command_results);
 
-void delete_log_entry(LogVec &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss);
+void delete_log_entry(LogVec &excerpt_list, string &input, ostringstream &error_ss);
 
-void move_to_beginning(LogVec &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss);
+void move_to_beginning(LogVec &excerpt_list, string &input, ostringstream &error_ss);
 
-void move_to_end(LogVec &excerpt_list, string &input, ostringstream &ss, ostringstream &error_ss);
+void move_to_end(LogVec &excerpt_list, string &input, ostringstream &error_ss);
 
 void sort_excerpt_list(LogVec &excerpt_list);
 

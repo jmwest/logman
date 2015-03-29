@@ -1,0 +1,61 @@
+19 entries loaded
+%3
+%7
+%%%%%2|03:90:20:99:12|Boo-l| boo l boo boo l l L l boo l
+3|04:30:20:99:12|spoo=l|coolboolspoolfiestA
+4|05:60:20:99:11|coo~l| h o t c o o L
+5|06:00:20:99:14|cool| cool cool -- cool -l- cool `
+7|08:20:20:99:16|boo\| you 1 2 3 not fieSt what cool l rachel
+18|10:02:20:09:18|L'o'l|[eleagu]
+14|99:10:20:99:12|coo~l|hot rachel fiest a
+%4
+%%2
+%1|02:10:20:99:12|fiest-y|1 rachel
+11|10:01:79:69:18|fiest-y|2 rachel
+%%%%0|16|10:02:20:09:18|?|[what%is?]
+1|17|10:02:20:09:18|hi|[goodbye]
+2|2|03:90:20:99:12|Boo-l| boo l boo boo l l L l boo l
+3|3|04:30:20:99:12|spoo=l|coolboolspoolfiestA
+4|4|05:60:20:99:11|coo~l| h o t c o o L
+5|5|06:00:20:99:14|cool| cool cool -- cool -l- cool `
+6|7|08:20:20:99:16|boo\| you 1 2 3 not fieSt what cool l rachel
+7|18|10:02:20:09:18|L'o'l|[eleagu]
+8|14|99:10:20:99:12|coo~l|hot rachel fiest a
+9|2|03:90:20:99:12|Boo-l| boo l boo boo l l L l boo l
+10|3|04:30:20:99:12|spoo=l|coolboolspoolfiestA
+11|4|05:60:20:99:11|coo~l| h o t c o o L
+12|5|06:00:20:99:14|cool| cool cool -- cool -l- cool `
+13|7|08:20:20:99:16|boo\| you 1 2 3 not fieSt what cool l rachel
+14|18|10:02:20:09:18|L'o'l|[eleagu]
+15|14|99:10:20:99:12|coo~l|hot rachel fiest a
+16|1|02:10:20:99:12|fiest-y|1 rachel
+17|6|07:10:20:99:15|--fiest-a--| Rachel rachel 1
+18|7|08:20:20:99:16|boo\| you 1 2 3 not fieSt what cool l rachel
+19|9|10:01:80:09:18|re-boot|you are (not) alone 1.0 rachEl fiest
+20|1|02:10:20:99:12|fiest-y|1 rachel
+21|11|10:01:79:69:18|fiest-y|2 rachel
+%1
+%%%0|1|02:10:20:99:12|fiest-y|1 rachel
+1|1|02:10:20:99:12|fiest-y|1 rachel
+2|2|03:90:20:99:12|Boo-l| boo l boo boo l l L l boo l
+3|2|03:90:20:99:12|Boo-l| boo l boo boo l l L l boo l
+4|3|04:30:20:99:12|spoo=l|coolboolspoolfiestA
+5|3|04:30:20:99:12|spoo=l|coolboolspoolfiestA
+6|4|05:60:20:99:11|coo~l| h o t c o o L
+7|4|05:60:20:99:11|coo~l| h o t c o o L
+8|5|06:00:20:99:14|cool| cool cool -- cool -l- cool `
+9|5|06:00:20:99:14|cool| cool cool -- cool -l- cool `
+10|6|07:10:20:99:15|--fiest-a--| Rachel rachel 1
+11|7|08:20:20:99:16|boo\| you 1 2 3 not fieSt what cool l rachel
+12|7|08:20:20:99:16|boo\| you 1 2 3 not fieSt what cool l rachel
+13|7|08:20:20:99:16|boo\| you 1 2 3 not fieSt what cool l rachel
+14|11|10:01:79:69:18|fiest-y|2 rachel
+15|9|10:01:80:09:18|re-boot|you are (not) alone 1.0 rachEl fiest
+16|10|10:02:20:09:18|+|[_____]
+17|16|10:02:20:09:18|?|[what%is?]
+18|18|10:02:20:09:18|L'o'l|[eleagu]
+19|18|10:02:20:09:18|L'o'l|[eleagu]
+20|17|10:02:20:09:18|hi|[goodbye]
+21|14|99:10:20:99:12|coo~l|hot rachel fiest a
+22|14|99:10:20:99:12|coo~l|hot rachel fiest a
+%

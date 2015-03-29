@@ -203,10 +203,12 @@ testCases : buildTestCases
 	./logman test-1-log.txt < test-1-cmds.txt > test-1-out.txt
 	./logman test-2-log.txt < test-2-cmds.txt > test-2-out.txt
 	./logman test-3-log.txt < test-3-cmds.txt > test-3-out.txt
+	./logman test-4-log.txt < test-4-cmds.txt > test-4-out.txt
 	diff output test-spec-out.txt
 	diff test-1-out.txt test-1-correct.txt
 	diff test-2-out.txt test-2-correct.txt
 	diff test-3-out.txt test-3-correct.txt
+	diff test-4-out.txt test-4-correct.txt
 
 #######################
 # TODO (begin) #

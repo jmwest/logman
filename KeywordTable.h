@@ -80,9 +80,25 @@ LogVec* KeywordTable::get_word_logs(string &words) {
 		}
 	}
 
+	///////////////////////////////////////////////////////////////
+//	cerr << "\n____________________________________________________________________________\n";
+//	cerr << "Keyword Search:\n";
+	///////////////////////////////////////////////////////////////
+
 	for (int i = 0; i < int(individual_words.size()); ++i) {
 
+		///////////////////////////////////////////////////////////////
+//		cerr << "\n" << individual_words.at(i) << endl;
+		///////////////////////////////////////////////////////////////
+
 		LogVec* current = &k_table[individual_words.at(i)];
+		sort(current->begin(), current->end());
+
+		///////////////////////////////////////////////////////////////
+//		for (int a = 0; a < int(current->size()); ++a) {
+//			cerr << "\t" << *current->at(a)->get_lower_case_string() << endl;
+//		}
+		///////////////////////////////////////////////////////////////
 
 		if (current->empty()) {
 			delete logs; logs = nullptr;
@@ -104,6 +120,16 @@ LogVec* KeywordTable::get_word_logs(string &words) {
 				break;
 			}
 		}
+
+		///////////////////////////////////////////////////////////////
+//		cerr << "Intersection:" << endl;
+//		if (logs) {
+//			for (int b = 0; b < int(logs->size()); ++b) {
+//				cerr << "\t" << *logs->at(b)->get_lower_case_string() << endl;
+//			}
+//		}
+		///////////////////////////////////////////////////////////////
+
 	}
 
 	return logs;
