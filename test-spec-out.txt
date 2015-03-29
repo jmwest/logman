@@ -1,7 +1,7 @@
 18 entries loaded
 %3
 %%0|10|07:02:10:12:43|PGM|Beginning master election.
-%2
+%4
 %3
 %%0|10|07:02:10:12:43|PGM|Beginning master election.
 1|5|01:07:08:12:00|UI-PANE2|Window received focus.

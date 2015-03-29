@@ -20,8 +20,6 @@ private:
 public:
 	KeywordTable();
 
-	int size() { return int(k_table.size()); }
-
 	void  insert_word_log(Log* log);
 
 	LogVec* get_word_logs(string &words);
@@ -61,7 +59,7 @@ LogVec* KeywordTable::get_word_logs(string &words) {
 
 	LogVec* logs = new LogVec();
 
-	vector <string> individual_words;
+	map <string, string> individual_words;
 
 	for (int i = 0; i < int(words.size()); ++i) {
 		words.at(i) = std::tolower(words.at(i));
@@ -73,7 +71,8 @@ LogVec* KeywordTable::get_word_logs(string &words) {
 		if ((i == int(words.length())) || !isalnum(int(words.at(i)))) {
 
 			if (word_start != i) {
-				individual_words.push_back(words.substr(word_start, i - word_start));
+				string key = words.substr(word_start, i - word_start);
+				individual_words.insert(map <string, string>:: value_type(key, key));
 			}
 
 			word_start = i + 1;
@@ -85,13 +84,13 @@ LogVec* KeywordTable::get_word_logs(string &words) {
 //	cerr << "Keyword Search:\n";
 	///////////////////////////////////////////////////////////////
 
-	for (int i = 0; i < int(individual_words.size()); ++i) {
+	for (map <string, string>::iterator it = individual_words.begin(); it != individual_words.end(); ++it) {
 
 		///////////////////////////////////////////////////////////////
 //		cerr << "\n" << individual_words.at(i) << endl;
 		///////////////////////////////////////////////////////////////
 
-		LogVec* current = &k_table[individual_words.at(i)];
+		LogVec* current = &k_table[it->second];
 		sort(current->begin(), current->end());
 
 		///////////////////////////////////////////////////////////////
@@ -111,9 +110,7 @@ LogVec* KeywordTable::get_word_logs(string &words) {
 		else {
 			LogVec::iterator del = set_intersection(logs->begin(), logs->end(), current->begin(), current->end(), logs->begin());
 
-			if ((del != --logs->end()) && ((del != logs->end()) || (del == logs->begin()))) {
-				logs->erase(del, logs->end());
-			}
+			logs->erase(del, logs->end());
 
 			if (del == logs->begin()) {
 				delete logs; logs = nullptr;
