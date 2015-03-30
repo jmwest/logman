@@ -28,6 +28,11 @@ private:
 	const int entry_id;
 
 	string timestamp;
+	int month;
+	int day;
+	int hour;
+	int minute;
+	int second;
 
 	string category;
 
@@ -43,6 +48,11 @@ public:
 	int get_entry_id() { return entry_id; }
 	
 	string* get_time_stamp() { return &timestamp; }
+	int get_month() { return month; }
+	int get_day() { return day; }
+	int get_hour() { return hour; }
+	int get_minute() { return minute; }
+	int get_second() { return second; }
 
 	string* get_category() { return &category; }
 
@@ -57,6 +67,12 @@ int Log::count = 0;
 
 Log::Log(string &timestamp_in, string &category_in, string &message_in)
 :entry_id(count++), timestamp(timestamp_in), category(category_in), message(message_in) {
+
+	month = stoi(timestamp_in.substr(0,2));
+	day = stoi(timestamp_in.substr(3,2));
+	hour = stoi(timestamp_in.substr(6,2));
+	minute = stoi(timestamp_in.substr(9,2));
+	second = stoi(timestamp_in.substr(12,2));
 
 	lower_cat = category_in;
 
@@ -94,11 +110,48 @@ public:
 	}
 };
 
-typedef vector <Log*> LogVec;
+//class MinLogComparator {
+//public:
+//	bool operator() (Log* const &one, Log* const &two) {
+//		if (one->get_month() < two->get_month()) {
+//			return true;
+//		}
+//		else if (one->get_month() == two->get_month()) {
+//			if (one->get_day() < two->get_day()) {
+//				return true;
+//			}
+//			else if (one->get_day() == two->get_day()) {
+//				if (one->get_hour() < two->get_hour()) {
+//					return true;
+//				}
+//				else if (one->get_hour() == two->get_hour()) {
+//					if (one->get_minute() < two->get_minute()) {
+//						return true;
+//					}
+//					else if (one->get_minute() == two->get_minute()) {
+//						if (one->get_second() < two->get_second()) {
+//							return true;
+//						}
+//						
+//						else if (one->get_second() == two->get_second()) {
+//							if (*one->get_lower_cat() < *two->get_lower_cat()) {
+//								return true;
+//							}
+//							else if (*one->get_lower_cat() == *two->get_lower_cat()) {
+//								if (one->get_entry_id() < two->get_entry_id()) {
+//									return true;
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//		
+//		return false;
+//	}
+//};
 
-struct LogVecResults {
-	LogVec::iterator begin;
-	LogVec::iterator end;
-};
+typedef vector <Log*> LogVec;
 
 #endif
