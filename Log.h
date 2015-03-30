@@ -31,9 +31,11 @@ private:
 
 	string category;
 
-	string lower_case_string;
+	string lower_cat;
 
 	string message;
+
+	string lower_mess;
 
 public:
 	Log(string &timestamp_in, string &category_in, string &message_in);
@@ -44,9 +46,11 @@ public:
 
 	string* get_category() { return &category; }
 
-	string* get_lower_case_string() { return &lower_case_string; }
+	string* get_lower_cat() { return &lower_cat; }
 
 	string* get_message() { return &message; }
+
+	string* get_lower_mess() { return &lower_mess; }
 };
 
 int Log::count = 0;
@@ -54,10 +58,15 @@ int Log::count = 0;
 Log::Log(string &timestamp_in, string &category_in, string &message_in)
 :entry_id(count++), timestamp(timestamp_in), category(category_in), message(message_in) {
 
-	lower_case_string = category_in + ' ' + message_in;
+	lower_cat = category_in;
+	lower_mess = message_in;
 
-	for (int i = 0; i < int(lower_case_string.length()); ++i) {
-		lower_case_string.at(i) = tolower(lower_case_string.at(i));
+	for (int i = 0; i < int(lower_cat.length()); ++i) {
+		lower_cat.at(i) = tolower(lower_cat.at(i));
+	}
+
+	for (int i = 0; i < int(lower_mess.length()); ++i) {
+		lower_mess.at(i) = tolower(lower_mess.at(i));
 	}
 }
 
@@ -70,10 +79,10 @@ public:
 			return true;
 		}
 		else if (*one->get_time_stamp() == *two->get_time_stamp()) {
-			if (*one->get_category() < *two->get_category()) {
+			if (*one->get_lower_cat() < *two->get_lower_cat()) {
 				return true;
 			}
-			else if (*one->get_category() == *two->get_category()) {
+			else if (*one->get_lower_cat() == *two->get_lower_cat()) {
 				if (one->get_entry_id() < two->get_entry_id()) {
 					return true;
 				}

@@ -20,22 +20,16 @@ private:
 public:
 	CategoryTable();
 
-	void insert_cat_log(Log* log);
+	void insert_cat_log(Log* &log);
 
 	LogVec* get_cat_logs(string &cat);
 };
 
 CategoryTable::CategoryTable() {}
 
-void CategoryTable:: insert_cat_log(Log* log) {
+void CategoryTable:: insert_cat_log(Log* &log) {
 
-	string s = *log->get_category();
-
-	for (int i = 0; i < int(s.length()); ++i) {
-		s.at(i) = tolower(s.at(i));
-	}
-
-	c_table[s].push_back(log);
+	c_table[*log->get_lower_cat()].push_back(log);
 
 	return;
 }

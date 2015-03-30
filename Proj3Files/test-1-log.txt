@@ -1,7 +1,7 @@
 00:10:20:99:12|TCP|TASTY CRUMPET--PASTRIES!!@I&ATE_4!!
 00:10:20:99:13|Tcp|Doesanyonelookatethesetestcasesatallcanyouhearme?
 00:10:20:99:12|tcp-main|AtE a ]]SaNdWiCh~-~-~-~-
-00:10:20:99:12|tCP|Bad crumpet received (CrumpetID #12353)
+00:10:20:99:12|tcp|Bad crumpet received (CrumpetID #12353)
 00:10:20:99:11|Crumpet-Mgr|CrumpetID=blueberry/raspberry/lemonberry
 00:10:20:99:14|UI-CRUMPET2|crumPET received focus.
 00:10:20:99:15|Tea|Teabag #12 blocking on join call to teabag #4

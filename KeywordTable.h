@@ -20,36 +20,43 @@ private:
 public:
 	KeywordTable();
 
-	void  insert_word_log(Log* log);
+	void  insert_word_log(Log* &log);
 
 	LogVec* get_word_logs(string &words);
 };
 
 KeywordTable::KeywordTable() {}
 
-void KeywordTable:: insert_word_log(Log* log) {
+void KeywordTable:: insert_word_log(Log* &log) {
 
-	unordered_map <string, string> word_map;
+//	unordered_map <string, string> word_map;
+	vector <string> word_map;
 
-	string* message = log->get_lower_case_string();
+	string message = *log->get_lower_cat() + " " + *log->get_lower_mess();
 
 	int word_start = 0;
-	for (int i = 0; i <= int(message->length()); ++i) {
+	for (int i = 0; i <= int(message.length()); ++i) {
 
-		if ((i == int(message->length())) || !isalnum(int(message->at(i)))) {
+		if ((i == int(message.length())) || !isalnum(int(message.at(i)))) {
 
 			if (word_start != i) {
-				string word = message->substr(word_start, i - word_start);
-				word_map.insert(unordered_map <string, string>::value_type(word, word));
+				string word = message.substr(word_start, i - word_start);
+//				word_map.insert(unordered_map <string, string>::value_type(word, word));
+				if (find(word_map.begin(), word_map.end(), word) == word_map.end()) {
+					word_map.push_back(word);
+				}
 			}
 
 			word_start = i + 1;
 		}
 	}
 
-	for (unordered_map <string, string>:: iterator it = word_map.begin();
-		 it != word_map.end(); ++it) {
-		k_table[it->second].push_back(log);
+//	for (unordered_map <string, string>:: iterator it = word_map.begin();
+//		 it != word_map.end(); ++it) {
+//		k_table[it->second].push_back(log);
+//	}
+	for (int j = 0; j < int(word_map.size()); ++j) {
+		k_table[word_map.at(j)].push_back(log);
 	}
 
 	return;
