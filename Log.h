@@ -96,4 +96,9 @@ public:
 
 typedef vector <Log*> LogVec;
 
+struct LogVecResults {
+	LogVec::iterator begin;
+	LogVec::iterator end;
+};
+
 #endif

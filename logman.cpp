@@ -89,6 +89,8 @@ void input_master_log_file(ifstream &file_stream, TimestampTable &time_table, Ca
 		}
 	}
 
+	time_table.sort_time_logs();
+
 	ss << num_logs << " entries loaded\n";
 
 	return;

@@ -159,7 +159,7 @@ void make_cmnd_file(ostringstream &cmnd_ss, int &log_size, int &cmnd_size) {
 				break;
 
 			case 2:
-				cmnd_ss << "k " << make_message();
+				cmnd_ss << "k " << make_category() << ' ' << make_message();
 				break;
 
 			case 3:
@@ -240,19 +240,38 @@ string make_time_stamp() {
 
 string make_category() {
 
-	static const char* cat_start = "Crumpety";
+	static const char* cat_start1 = "Crumpety";
+	static const char* cat_start2 = "Dumpety";
+	static const char* cat_start3 = "heLLo";
+	static const char* cat_start4 = "tadd";
+	static const char* cat_start5 = "ummm";
 
-	int cat_size = rand() % 5;
-	string cat = cat_start;
+	int cat_int = rand() % 5;
+	string cat;
 	
-	for (int k = 0; k < cat_size; ++k) {
-		char ins = (rand() % 95) + 32;
-		
-		if (ins == '|') {
-			ins = '~';
-		}
-		
-		cat.insert(cat.begin() + (rand() % cat.length()), ins);
+	switch (cat_int) {
+		case 0:
+			cat = cat_start1;
+			break;
+			
+		case 1:
+			cat = cat_start2;
+			break;
+			
+		case 2:
+			cat = cat_start3;
+			break;
+			
+		case 3:
+			cat = cat_start4;
+			break;
+			
+		case 4:
+			cat = cat_start5;
+			break;
+			
+		default:
+			break;
 	}
 
 	return cat;
@@ -260,19 +279,39 @@ string make_category() {
 
 string make_message() {
 
-	static const char* mess_start = "Thesecrumpets areyummy";
+	static const char* mess_start1 = "These crumpets are yummy";
+	static const char* mess_start2 = "bisCuit crumpets are gross";
+	static const char* mess_start3 = "hello crumpets hello yummy";
+	static const char* mess_start4 = "These are yummy";
+	static const char* mess_start5 = "These crumpets aren't yummy";
 
-	int mess_size = 1 + (rand() % 17);
-	string mess = mess_start;
+	int mess_int = rand() % 5;
 
-	for (int l = 0; l < mess_size; ++l) {
-		char ins = (rand() % 95) + 32;
+	string mess;
 
-		if (ins == '|') {
-			ins = '~';
-		}
+	switch (mess_int) {
+		case 0:
+			mess = mess_start1;
+			break;
 
-		mess.insert(mess.begin() + (rand() % mess.length()), ins);
+		case 1:
+			mess = mess_start2;
+			break;
+
+		case 2:
+			mess = mess_start3;
+			break;
+
+		case 3:
+			mess = mess_start4;
+			break;
+
+		case 4:
+			mess = mess_start5;
+			break;
+
+		default:
+			break;
 	}
 
 	return mess;

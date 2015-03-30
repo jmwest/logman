@@ -23,6 +23,8 @@ public:
 
 	void  insert_time_log(Log* &log);
 
+	void sort_time_logs();
+
 	LogVec* get_time_logs(string &time1, string &time2);
 };
 
@@ -43,9 +45,18 @@ void TimestampTable:: insert_time_log(Log* &log) {
 
 //	t_table[*log->get_time_stamp()].push_back(log);
 
-	LogVec::iterator it = lower_bound(t_table.begin(), t_table.end(), log, TimeComp());
+//	LogVec::iterator it = lower_bound(t_table.begin(), t_table.end(), log, TimeComp());
+//
+//	t_table.insert(it, log);
 
-	t_table.insert(it, log);
+	t_table.push_back(log);
+
+	return;
+}
+
+void TimestampTable::sort_time_logs() {
+
+	sort(t_table.begin(), t_table.end(), TimeComp());
 
 	return;
 }
