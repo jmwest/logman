@@ -35,7 +35,7 @@ private:
 
 	string message;
 
-	string lower_mess;
+	string lower_message;
 
 public:
 	Log(string &timestamp_in, string &category_in, string &message_in);
@@ -50,7 +50,7 @@ public:
 
 	string* get_message() { return &message; }
 
-	string* get_lower_mess() { return &lower_mess; }
+	string* get_lower_message() { return &lower_message; }
 };
 
 int Log::count = 0;
@@ -59,14 +59,15 @@ Log::Log(string &timestamp_in, string &category_in, string &message_in)
 :entry_id(count++), timestamp(timestamp_in), category(category_in), message(message_in) {
 
 	lower_cat = category_in;
-	lower_mess = message_in;
 
 	for (int i = 0; i < int(lower_cat.length()); ++i) {
 		lower_cat.at(i) = tolower(lower_cat.at(i));
 	}
 
-	for (int i = 0; i < int(lower_mess.length()); ++i) {
-		lower_mess.at(i) = tolower(lower_mess.at(i));
+	lower_message = lower_cat + " " + message_in;
+
+	for (int i = int(lower_cat.size() + 1); i < int(lower_message.length()); ++i) {
+		lower_message.at(i) = tolower(lower_message.at(i));
 	}
 }
 

@@ -32,7 +32,7 @@ void KeywordTable:: insert_word_log(Log* &log) {
 //	unordered_map <string, string> word_map;
 	vector <string> word_map;
 
-	string message = *log->get_lower_cat() + " " + *log->get_lower_mess();
+	string message = *log->get_lower_message();
 
 	int word_start = 0;
 	for (int i = 0; i <= int(message.length()); ++i) {
