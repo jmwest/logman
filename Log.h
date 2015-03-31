@@ -89,6 +89,27 @@ Log::Log(string &timestamp_in, string &category_in, string &message_in)
 
 // Other comparator and type definitions
 
+//class MinLogComparator {
+//public:
+//	bool operator() (Log &one, Log &two) {
+//		if (*one.get_time_stamp() < *two.get_time_stamp()) {
+//			return true;
+//		}
+//		else if (*one.get_time_stamp() == *two.get_time_stamp()) {
+//			if (*one.get_lower_cat() < *two.get_lower_cat()) {
+//				return true;
+//			}
+//			else if (*one.get_lower_cat() == *two.get_lower_cat()) {
+//				if (one.get_entry_id() < two.get_entry_id()) {
+//					return true;
+//				}
+//			}
+//		}
+//
+//		return false;
+//	}
+//};
+
 class MinLogComparator {
 public:
 	bool operator() (Log* const &one, Log* const &two) {
@@ -105,7 +126,7 @@ public:
 				}
 			}
 		}
-
+		
 		return false;
 	}
 };

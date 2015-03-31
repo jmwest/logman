@@ -20,14 +20,16 @@ private:
 public:
 	KeywordTable();
 
-	void  insert_word_log(Log* &log);
+	void insert_word_log(Log* &log);
+
+	void sort_key_logs();
 
 	LogVec* get_word_logs(string &words);
 };
 
 KeywordTable::KeywordTable() {}
 
-void KeywordTable:: insert_word_log(Log* &log) {
+void KeywordTable::insert_word_log(Log* &log) {
 
 //	unordered_map <string, string> word_map;
 	vector <string> word_map;
@@ -57,6 +59,15 @@ void KeywordTable:: insert_word_log(Log* &log) {
 //	}
 	for (int j = 0; j < int(word_map.size()); ++j) {
 		k_table[word_map.at(j)].push_back(log);
+	}
+
+	return;
+}
+
+void KeywordTable::sort_key_logs() {
+
+	for (WordTable::iterator it = k_table.begin(); it != k_table.end(); ++it) {
+		sort(it->second.begin(), it->second.end());
 	}
 
 	return;
@@ -98,7 +109,7 @@ LogVec* KeywordTable::get_word_logs(string &words) {
 		///////////////////////////////////////////////////////////////
 
 		LogVec* current = &k_table[it->second];
-		sort(current->begin(), current->end());
+//		sort(current->begin(), current->end());
 
 		///////////////////////////////////////////////////////////////
 //		for (int a = 0; a < int(current->size()); ++a) {

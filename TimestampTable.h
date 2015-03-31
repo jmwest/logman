@@ -21,7 +21,7 @@ private:
 public:
 	TimestampTable();
 
-	void  insert_time_log(Log* &log);
+	void insert_time_log(Log* &log);
 
 	void sort_time_logs();
 

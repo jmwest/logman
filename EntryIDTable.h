@@ -20,7 +20,7 @@ public:
 	EntryIDTable();
 	~EntryIDTable();
 
-	void insert_entry_log(Log* log);
+	void insert_entry_log(Log* &log);
 
 	Log* get_entry_log(int entry_id);
 };
@@ -33,7 +33,7 @@ EntryIDTable::~EntryIDTable() {
 	}
 }
 
-void EntryIDTable:: insert_entry_log(Log* log) {
+void EntryIDTable::insert_entry_log(Log* &log) {
 
 	e_table.push_back(log);
 

@@ -36,6 +36,8 @@
 		27B541991AC24FB3008E1B75 /* EntryIDTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntryIDTable.h; sourceTree = SOURCE_ROOT; };
 		27B5419A1AC267CA008E1B75 /* TestClasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestClasses.h; path = Proj3Files/TestClasses.h; sourceTree = SOURCE_ROOT; };
 		27BDF0BC1ABE6905009E0C8F /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = SOURCE_ROOT; };
+		27C10BA61ACB16C200A9E5CE /* test-5-cmds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-5-cmds.txt"; sourceTree = SOURCE_ROOT; };
+		27C10BA71ACB16C200A9E5CE /* test-5-log.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-5-log.txt"; sourceTree = SOURCE_ROOT; };
 		27CE8C2B1AC32ED3005C9106 /* test-out.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-out.txt"; sourceTree = SOURCE_ROOT; };
 		27CE8C2C1AC348E8005C9106 /* test-1-log.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "test-1-log.txt"; path = "Proj3Files/test-1-log.txt"; sourceTree = SOURCE_ROOT; };
 		27CE8C2D1AC34907005C9106 /* test-1-cmds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "test-1-cmds.txt"; path = "Proj3Files/test-1-cmds.txt"; sourceTree = SOURCE_ROOT; };
@@ -110,6 +112,8 @@
 				27E5D4D31AC7667A00848041 /* test-4-cmds.txt */,
 				27E5D4D51AC78DDD00848041 /* test-4-correct.txt */,
 				27E5D4D61AC7947300848041 /* test-4-out.txt */,
+				27C10BA61ACB16C200A9E5CE /* test-5-cmds.txt */,
+				27C10BA71ACB16C200A9E5CE /* test-5-log.txt */,
 				27B5419A1AC267CA008E1B75 /* TestClasses.h */,
 				27DFAAB81AC4846F00D29CDB /* TestClasses.cpp */,
 				27E5D4C91AC5ED1B00848041 /* CreateLogFiles.h */,
